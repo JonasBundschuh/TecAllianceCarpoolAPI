@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T ecAlliance.Carpool.API", "T ecAllianceCarpoolAPI\T ecAlliance.Carpool.API.csproj", "{E1D31CBC-11AF-4A24-AEE3-338118D382DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TecAlliance.Carpool.API", "T ecAllianceCarpoolAPI\TecAlliance.Carpool.API.csproj", "{E1D31CBC-11AF-4A24-AEE3-338118D382DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TecAlliance.Carpool.Business", "TecAlliance.Carpool.Business\TecAlliance.Carpool.Business.csproj", "{7A05C6CF-FAF2-4F38-B281-379108523142}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TecAlliance.Carpool.Business", "TecAlliance.Carpool.Business\TecAlliance.Carpool.Business.csproj", "{7A05C6CF-FAF2-4F38-B281-379108523142}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TecAlliance.Carpool.Data", "TecAlliance.Carpool.Data\TecAlliance.Carpool.Data.csproj", "{74669BFD-CBAB-4FA1-9771-46D34D17FC0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TecAlliance.Carpool.Data", "TecAlliance.Carpool.Data\TecAlliance.Carpool.Data.csproj", "{74669BFD-CBAB-4FA1-9771-46D34D17FC0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
