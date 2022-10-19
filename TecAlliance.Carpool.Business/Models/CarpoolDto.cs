@@ -4,27 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TecAlliance.Carpool.Data.Models
+namespace TecAlliance.Carpool.Business.Models
 {
-    public class Driver
+    public class CarpoolDto
     {
-        public int Id { get; set; }
         public string FreeSeats { get; set; }
-        public string Smoke { get; set; }
-        public string FullName { get; set; }
+        public string DriverName { get; set; }
         public string StartLoc { get; set; }
         public string EndLoc { get; set; }
         public string TimeStart { get; set; }
         public string TimeEnd { get; set; }
-        public Driver(string freeSeats, string smoke, string fullName, string startLoc, string endLoc, string timeStart, string timeEnd)
+        public CarpoolDto(string freeSeats, string driverName, string startLoc, string endLoc, string timeStart, string timeEnd)
         {
             FreeSeats = freeSeats;
-            Smoke = smoke;
-            FullName = fullName;
+            DriverName = driverName;
             StartLoc = startLoc;
             EndLoc = endLoc;
             TimeStart = timeStart;
             TimeEnd = timeEnd;
         }
+
+        //public void AddNewDriver()
+        //{
+        //
+        //}
     }
 }

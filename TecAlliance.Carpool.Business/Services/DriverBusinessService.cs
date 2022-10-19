@@ -3,20 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TecAlliance.Carpool.Business.Models;
+using TecAlliance.Carpool.Data.Models;
 using TecAlliance.Carpool.Data.Services;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace TecAlliance.Carpool.Business.Services
 {
     public class DriverBusinessService
-    {
-        //public DriverBusinessService()
-        //{
-            DriverdataService  driverDataSercice = new DriverdataService();
-        //}
+    { 
+        DriverdataService driverDataSercice = new DriverdataService();
 
-        public void AddDriver(string FreeSeats, string Smoke, string FullName, string StartLoc, string EndLoc, string TimeStart, string TimeEnd)
+        
+        public void AddDriver(DriverDto driverDto)
         {
-            driverDataSercice.AddNewDriver(FreeSeats, Smoke, FullName, StartLoc, EndLoc, TimeStart, TimeEnd);
+
+            var driver = ConvertDriverDtoToDriver(driverDto);
+        }
+        public Driver ConvertDriverDtoToDriver(DriverDto driverDto)
+        {
+            var convertedDriver = new Driver(driverDto.FreeSeats, driverDto.Smoke, driverDto.FullName, driverDto.StartLoc, driverDto.EndLoc, driverDto.TimeStart, driverDto.TimeEnd);
+            
+                return convertedDriver;
         }
         
     }
