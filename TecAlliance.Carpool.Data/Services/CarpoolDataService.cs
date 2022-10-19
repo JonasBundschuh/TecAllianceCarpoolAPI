@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Formats.Asn1.AsnWriter;
-using TecAlliance.Carpool.Data.Models;
-using System.IO;
-
-namespace TecAlliance.Carpool.Data.Services
+﻿namespace TecAlliance.Carpool.Data.Services
 {
     public class CarpoolDataService
     {

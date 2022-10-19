@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using TecAlliance.Carpool.Data.Models;
+﻿using TecAlliance.Carpool.Data.Models;
 
 namespace TecAlliance.Carpool.Data.Services
 {
@@ -23,7 +22,7 @@ namespace TecAlliance.Carpool.Data.Services
         List<string> AllDrivers = new List<string>();
         public void GetAllDrivers(Driver driver)
         {
-            foreach(string file in Directory.EnumerateFiles("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Drivers", "*.csv"))
+            foreach (string file in Directory.EnumerateFiles("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Drivers", "*.csv"))
             {
                 AllDrivers.Add(file);
                 foreach (string drivers in AllDrivers)
@@ -31,16 +30,16 @@ namespace TecAlliance.Carpool.Data.Services
                     string Drivers = drivers;
                 }
             }
-      
-            
+
+
         }
 
-       
 
-        
 
-      
 
-  
+
+
+
+
     }
 }

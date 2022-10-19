@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TecAlliance.Carpool.Data.Models
+﻿namespace TecAlliance.Carpool.Data.Models
 {
     public class Driver
     {

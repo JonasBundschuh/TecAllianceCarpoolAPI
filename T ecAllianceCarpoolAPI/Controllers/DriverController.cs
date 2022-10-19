@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using TecAlliance.Carpool.Business.Models;
 using TecAlliance.Carpool.Business.Services;
-using TecAlliance.Carpool.Data.Services;
 
 namespace T_ecAllianceCarpoolAPI.Controllers
 {
@@ -16,21 +15,21 @@ namespace T_ecAllianceCarpoolAPI.Controllers
         public DriverController(ILogger<DriverController> logger)
         {
             driverBusinessService = new DriverBusinessService();
-            _logger = logger;    
+            _logger = logger;
         }
 
         [HttpPost]
         public async Task<ActionResult<DriverDto>> Post(DriverDto driver)
         {
-            driverBusinessService.AddDriver(driver);            
+            driverBusinessService.AddDriver(driver);
             return NoContent();
         }
-        
+
         [HttpGet(Name = "GetDriver")]
-        
+
         public async Task<ActionResult<DriverDto>> Get(DriverDto driver)
         {
-            
+
             driverBusinessService.AddDriver(driver);
             return NoContent();
         }
