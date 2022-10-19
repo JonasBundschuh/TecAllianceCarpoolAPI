@@ -1,4 +1,6 @@
-﻿using TecAlliance.Carpool.Data.Services;
+﻿using TecAlliance.Carpool.Business.Models;
+using TecAlliance.Carpool.Data.Models;
+using TecAlliance.Carpool.Data.Services;
 
 namespace TecAlliance.Carpool.Business.Services
 {
@@ -6,9 +8,15 @@ namespace TecAlliance.Carpool.Business.Services
     {
         CarpoolDataService carpoolDataService = new CarpoolDataService();
 
-        // public void AddCarpool()
-        //{
-        //  carpoolDataService.AddNewCarpool();
-        //}
+        public void AddCarpool(CarpoolDto carpoolDto)
+        {
+            var carpool = ConvertCarpoolDtoToCarpools(carpoolDto);
+        }
+
+        public CarpoolS ConvertCarpoolDtoToCarpools(CarpoolDto carpoolDto)
+        {
+            var convertedCarpool = new CarpoolS(carpoolDto.FreeSeats, carpoolDto.DriverName, carpoolDto.StartLoc, carpoolDto.EndLoc, carpoolDto.TimeStart, carpoolDto.TimeEnd)
+                return convertedCarpool;
+        }
     }
 }
