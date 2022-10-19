@@ -31,6 +31,7 @@ namespace T_ecAllianceCarpoolAPI.Controllers
         public async Task<ActionResult<DriverDto>> Get(DriverDto driver)
         {
             
+            driverBusinessService.AddDriver(driver);
             return NoContent();
         }
     }
