@@ -8,6 +8,8 @@ namespace TecAlliance.Carpool.Business.Models
 {
     public class DriverDto
     {
+
+        //Create DriverDto Properties
         public string FreeSeats { get; set; }
         public string Smoke { get; set; }
         public string FullName { get; set; }
@@ -15,6 +17,8 @@ namespace TecAlliance.Carpool.Business.Models
         public string EndLoc { get; set; }
         public string TimeStart { get; set; }
         public string TimeEnd { get; set; }
+
+        //Constructor for DriverDto Properties
         public DriverDto(string freeSeats, string smoke, string fullName, string startLoc, string endLoc, string timeStart, string timeEnd)
         {
             FreeSeats = freeSeats;

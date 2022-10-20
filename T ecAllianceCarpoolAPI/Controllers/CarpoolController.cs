@@ -18,6 +18,8 @@ namespace T_ecAllianceCarpoolAPI.Controllers
             carpoolBusinessService = new CarpoolBusinessService();
             _logger = logger;
         }
+
+        //Post Carpool
         [HttpPost]
         [Route("/postCarpool")]
         public async Task<ActionResult<CarpoolS>> Post(CarpoolDto carpool)
@@ -26,6 +28,7 @@ namespace T_ecAllianceCarpoolAPI.Controllers
             return StatusCode(200,"successfully added new Carpool");
         }
 
+        //Get all Carpools
         [HttpGet]
         [Route("/getCarpool")]
         public async Task<ActionResult<List<CarpoolDto>>> Get()
