@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TecAlliance.Carpool.Business.Models;
 using TecAlliance.Carpool.Business.Services;
+using TecAlliance.Carpool.Data.Services;
 
 namespace T_ecAllianceCarpoolAPI.Controllers
 {
@@ -9,6 +10,7 @@ namespace T_ecAllianceCarpoolAPI.Controllers
     public class DriverController : ControllerBase
     {
         private DriverBusinessService driverBusinessService;
+        private DriverdataService driverdataService;
 
         private readonly ILogger<DriverController> _logger;
 
@@ -31,6 +33,14 @@ namespace T_ecAllianceCarpoolAPI.Controllers
         public async Task<ActionResult<DriverDto>> Get(DriverDto driver)
         {
             return NoContent();
+        }
+
+        [HttpDelete]
+        [Route("/deleteAllDrivers")]
+        public async Task<ActionResult<DriverDto>> Delete(DriverDto driver)
+        {
+            driverBusinessService.DeleteAllDrivers(driver);
+            return StatusCode(200, "Successfully deleted all Drivers");
         }
     }
 }

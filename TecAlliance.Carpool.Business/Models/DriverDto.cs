@@ -2,7 +2,6 @@
 {
     public class DriverDto
     {
-
         //Create DriverDto Properties
         public string FreeSeats { get; set; }
         public string Smoke { get; set; }
