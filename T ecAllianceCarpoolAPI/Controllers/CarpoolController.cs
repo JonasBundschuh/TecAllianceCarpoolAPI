@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Runtime.CompilerServices;
 using TecAlliance.Carpool.Business.Models;
 using TecAlliance.Carpool.Business.Services;
 using TecAlliance.Carpool.Data.Models;
-using TecAlliance.Carpool.Data.Services;
 
 namespace T_ecAllianceCarpoolAPI.Controllers
 {
@@ -25,7 +23,7 @@ namespace T_ecAllianceCarpoolAPI.Controllers
         public async Task<ActionResult<CarpoolS>> Post(CarpoolDto carpool)
         {
             carpoolBusinessService.AddCarpool(carpool);
-            return StatusCode(200,"successfully added new Carpool");
+            return StatusCode(200, "successfully added new Carpool");
         }
 
         //Get all Carpools

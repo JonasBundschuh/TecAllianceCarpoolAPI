@@ -11,7 +11,7 @@
         public string TimeArrive { get; set; }
         public CarpoolS(string freeSeats, string driverName, string startLoc, string endLoc, string timeDepart, string timeArrive)
         {
-            FreeSeats = freeSeats;             
+            FreeSeats = freeSeats;
             DriverName = driverName;
             StartLoc = startLoc;
             EndLoc = endLoc;

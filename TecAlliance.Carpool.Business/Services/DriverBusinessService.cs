@@ -20,9 +20,9 @@ namespace TecAlliance.Carpool.Business.Services
 
         //Method to convert DriverDto to "convertedDriver" to use for "driver"
         public Driver ConvertDriverDtoToDriver(DriverDto driverDto)
-        {            
+        {
             var convertedDriver = new Driver(driverDto.FreeSeats, driverDto.Smoke, driverDto.FullName, driverDto.StartLoc, driverDto.EndLoc, driverDto.TimeStart, driverDto.TimeEnd);
-            return convertedDriver;           
+            return convertedDriver;
         }
     }
 }

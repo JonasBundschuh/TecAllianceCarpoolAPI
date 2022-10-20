@@ -13,9 +13,9 @@ namespace TecAlliance.Carpool.Business.Services
 
         //Add a new Carpool
         public CarpoolS AddCarpool(CarpoolDto carpoolDto)
-        {         
+        {
             var carpool = ConvertCarpoolDtoToCarpools(carpoolDto);
-            var AddSomeNewCarpool= new CarpoolDataService();
+            var AddSomeNewCarpool = new CarpoolDataService();
             AddSomeNewCarpool.AddNewCarpool(carpool);
             return carpool;
         }
