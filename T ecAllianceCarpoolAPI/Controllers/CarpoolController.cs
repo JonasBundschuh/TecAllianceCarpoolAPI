@@ -2,25 +2,36 @@
 using System.Runtime.CompilerServices;
 using TecAlliance.Carpool.Business.Models;
 using TecAlliance.Carpool.Business.Services;
+using TecAlliance.Carpool.Data.Models;
+using TecAlliance.Carpool.Data.Services;
 
 namespace T_ecAllianceCarpoolAPI.Controllers
 {
     [ApiController]
-    [Route("[controller/carpools]")]
-    public class CarpoolController
+    [Route("CarpoolController")]
+    public class CarpoolController : ControllerBase
     {
         private CarpoolBusinessService carpoolBusinessService;
-        private readonly ILogger<CarpoolController> logger;
-        public CarpoolController(ILogger <CarpoolController> logger)
+        private readonly ILogger<CarpoolController> _logger;
+        public CarpoolController(ILogger<CarpoolController> logger)
         {
-            carpoolBusinessService = new CarpoolBusinessService();            
+            carpoolBusinessService = new CarpoolBusinessService();
+            _logger = logger;
         }
-
         [HttpPost]
-        public async Task<ActionResult<CarpoolDto>> Post(CarpoolDto carpool)
+        [Route("/postCarpool")]
+        public async Task<ActionResult<CarpoolS>> Post(CarpoolDto carpool)
         {
             carpoolBusinessService.AddCarpool(carpool);
-            return NoContent();
+            return StatusCode(200,"successfully added new Carpool");
+        }
+
+        [HttpGet]
+        [Route("/getCarpool")]
+        public async Task<ActionResult<List<CarpoolDto>>> Get()
+        {
+            var CarpoolToGive = carpoolBusinessService.FinalCarpoolList();
+            return CarpoolToGive;
         }
     }
 }

@@ -8,7 +8,6 @@ namespace TecAlliance.Carpool.Business.Models
 {
     public class DriverDto
     {
-        public int Id { get; set; }
         public string FreeSeats { get; set; }
         public string Smoke { get; set; }
         public string FullName { get; set; }

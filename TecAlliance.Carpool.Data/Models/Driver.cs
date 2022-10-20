@@ -2,7 +2,6 @@
 {
     public class Driver
     {
-        public int Id { get; set; }
         public string FreeSeats { get; set; }
         public string Smoke { get; set; }
         public string FullName { get; set; }

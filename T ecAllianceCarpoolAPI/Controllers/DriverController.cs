@@ -5,7 +5,7 @@ using TecAlliance.Carpool.Business.Services;
 namespace T_ecAllianceCarpoolAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("DriverController")]
     public class DriverController : ControllerBase
     {
         private DriverBusinessService driverBusinessService;
@@ -19,18 +19,17 @@ namespace T_ecAllianceCarpoolAPI.Controllers
         }
 
         [HttpPost]
+        [Route("/postDriver")]
         public async Task<ActionResult<DriverDto>> Post(DriverDto driver)
         {
             driverBusinessService.AddDriver(driver);
-            return NoContent();
+            return StatusCode(200, "successfully added new Carpool");
         }
 
-        [HttpGet(Name = "GetDriver")]
-
+        [HttpGet]
+        [Route("/getDriver")]
         public async Task<ActionResult<DriverDto>> Get(DriverDto driver)
         {
-
-            driverBusinessService.AddDriver(driver);
             return NoContent();
         }
     }

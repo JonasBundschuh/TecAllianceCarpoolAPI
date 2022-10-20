@@ -18,5 +18,15 @@
             TimeDepart = timeDepart;
             TimeArrive = timeArrive;
         }
+        public CarpoolS(int id, string freeSeats, string driverName, string startLoc, string endLoc, string timeDepart, string timeArrive)
+        {
+            Id = id;
+            FreeSeats = freeSeats;
+            DriverName = driverName;
+            StartLoc = startLoc;
+            EndLoc = endLoc;
+            TimeDepart = timeDepart;
+            TimeArrive = timeArrive;
+        }
     }
 }

@@ -1,17 +1,39 @@
-﻿namespace TecAlliance.Carpool.Data.Services
+﻿using TecAlliance.Carpool.Data.Models;
+
+namespace TecAlliance.Carpool.Data.Services
 {
     public class CarpoolDataService
     {
-        int CarpoolID = 0;
-        public void AddNewCarpool(string freeSeats, string fullName, string startLoc, string endLoc, string timeStart, string timeEnd)
+        
+
+        //Method to add a new carpool
+        public void AddNewCarpool(CarpoolS carpool)
         {
-            foreach (string file in Directory.EnumerateFiles("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Drivers", "*.csv"))
-            {
-                CarpoolID++;
-            }
-            File.AppendAllText($"C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Driver{CarpoolID}.csv", $"{CarpoolID};{freeSeats};{fullName};{startLoc};{endLoc};{timeStart};{timeEnd};\n");
+            //Check If carpools file exists, if not create it
+            CheckForOrCreateCarpoolFile();
 
+            //check how many lines are there and then set the ID
+            var FileCount = File.ReadLines("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpools.csv").Count()+1;
+            
+            //Create  variable for Carpool Driver data set
+            string newCarPoolDataSet = $"{FileCount};{carpool.FreeSeats};{carpool.DriverName};{carpool.StartLoc};{carpool.EndLoc};{carpool.TimeDepart};{carpool.TimeArrive}\n";
 
+            //write dataset in Carpools file
+            File.AppendAllText($"C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpools.csv", newCarPoolDataSet);
         }
+
+        //Method to check if Carpools file exists, if not create one
+        public void CheckForOrCreateCarpoolFile()
+        {
+            if (File.Exists("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpools.csv"))
+            {
+
+            }
+            else
+            {
+                File.Create("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpools.csv");
+            }
+        }
+        
     }
 }
