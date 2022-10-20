@@ -28,25 +28,13 @@ namespace TecAlliance.Carpool.Business.Services
             return convertedCarpool;
         }
 
-        //Final List of carpools
-        public List<CarpoolDto> FinalCarpoolList()
+        public void GetAllCarpools()
         {
-            var foo = new CarpoolDataService();
-            List<CarpoolDto> Proplist = new List<CarpoolDto>();
-            List<CarpoolS> listS = new List<CarpoolS>();
-            foreach (CarpoolS Cars in listS)
+            List<string> AllCarpools = new List<string>();
+            foreach(string line in File.ReadLines("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpool"))
             {
-                var sdto = ConvertCarpool(Cars);
-                Proplist.Add(sdto);
+                AllCarpools.Add(line);
             }
-            return Proplist;
-        }
-
-        //Another conveerter
-        public CarpoolDto ConvertCarpool(CarpoolS Proplist)
-        {
-            var AppendCarPool = new CarpoolDto(Proplist.FreeSeats, Proplist.DriverName, Proplist.StartLoc, Proplist.EndLoc, Proplist.TimeDepart, Proplist.TimeArrive);
-            return AppendCarPool;
         }
 
         public void DeleteAllCarpools()

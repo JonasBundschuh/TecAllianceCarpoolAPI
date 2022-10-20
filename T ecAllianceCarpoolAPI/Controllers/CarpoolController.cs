@@ -43,5 +43,6 @@ namespace T_ecAllianceCarpoolAPI.Controllers
             carpoolBusinessService.DeleteAllCarpools();
             return StatusCode(200, "Successfully deleted all Carpools");
         }
+        
     }
 }
