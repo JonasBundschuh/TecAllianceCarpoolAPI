@@ -48,5 +48,10 @@ namespace TecAlliance.Carpool.Business.Services
             var AppendCarPool = new CarpoolDto(Proplist.FreeSeats, Proplist.DriverName, Proplist.StartLoc, Proplist.EndLoc, Proplist.TimeDepart, Proplist.TimeArrive);
             return AppendCarPool;
         }
+
+        public void DeleteAllCarpools()
+        {
+            File.Delete("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpools.csv");
+        }
     }
 }

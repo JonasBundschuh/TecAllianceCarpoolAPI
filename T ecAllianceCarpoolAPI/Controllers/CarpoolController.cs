@@ -34,5 +34,14 @@ namespace T_ecAllianceCarpoolAPI.Controllers
             var CarpoolToGive = carpoolBusinessService.FinalCarpoolList();
             return CarpoolToGive;
         }
+
+        //Delete all Carpools
+        [HttpDelete]
+        [Route("/deleteAllCarpools")]
+        public async Task<ActionResult<CarpoolS>> Delete()
+        {
+            carpoolBusinessService.DeleteAllCarpools();
+            return StatusCode(200, "Successfully deleted all Carpools");
+        }
     }
 }

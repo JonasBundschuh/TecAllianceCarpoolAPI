@@ -39,7 +39,7 @@ namespace T_ecAllianceCarpoolAPI.Controllers
         [Route("/deleteAllDrivers")]
         public async Task<ActionResult<DriverDto>> Delete(DriverDto driver)
         {
-            driverBusinessService.DeleteAllDrivers(driver);
+            driverBusinessService.DeleteAllDrivers();
             return StatusCode(200, "Successfully deleted all Drivers");
         }
     }

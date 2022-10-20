@@ -25,7 +25,7 @@ namespace TecAlliance.Carpool.Business.Services
             return convertedDriver;
         }
 
-        public void DeleteAllDrivers(Driver driver)
+        public void DeleteAllDrivers()
         {
             File.Delete("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Drivers\\Driver.csv");
         }
