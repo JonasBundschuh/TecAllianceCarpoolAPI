@@ -10,7 +10,7 @@ namespace TecAlliance.Carpool.Business.Services
         //Create new DriverdataService
         DriverdataService driverDataSercice = new DriverdataService();
 
-        //Add a new Driver
+        //Add a new DriverSS
         public void AddDriver(DriverDto driverDto)
         {
             var driver = ConvertDriverDtoToDriver(driverDto);

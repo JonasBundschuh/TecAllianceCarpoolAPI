@@ -31,8 +31,8 @@ namespace T_ecAllianceCarpoolAPI.Controllers
         [Route("/getCarpool")]
         public async Task<ActionResult<List<CarpoolDto>>> Get()
         {
-            var CarpoolToGive = carpoolBusinessService.FinalCarpoolList();
-            return CarpoolToGive;
+          
+            return NoContent();
         }
 
         //Delete all Carpools

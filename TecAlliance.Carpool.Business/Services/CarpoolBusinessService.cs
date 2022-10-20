@@ -30,13 +30,12 @@ namespace TecAlliance.Carpool.Business.Services
 
         public void GetAllCarpools()
         {
-            List<string> AllCarpools = new List<string>();
+
             foreach(string line in File.ReadLines("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpool"))
             {
-                AllCarpools.Add(line);
+                
             }
         }
-
         public void DeleteAllCarpools()
         {
             File.Delete("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpools.csv");
