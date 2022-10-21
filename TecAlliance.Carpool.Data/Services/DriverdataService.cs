@@ -21,7 +21,27 @@ namespace TecAlliance.Carpool.Data.Services
             File.AppendAllText($"C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Drivers\\Driver.csv", newDriverDataSet);
         }
 
-        
+        public List<Driver> AllDrivers()
+        {
+            var readText = File.ReadAllLines("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Drivers\\Driver.csv");
+            List<Driver> drivers = new List<Driver>();
+            foreach(var line in readText)
+            {
+                string[] splittedDrivers = line.Split(';');
+                var foo = new Driver
+                    (
+                        splittedDrivers[0],
+                        splittedDrivers[1],
+                        splittedDrivers[2],
+                        splittedDrivers[3],
+                        splittedDrivers[4],
+                        splittedDrivers[5],
+                        splittedDrivers[6]
+                    );
+                drivers.Add(foo);
+            }
+            return drivers;
+        }
 
         //Check if Driver file exists, if not create one
         public void CheckForDriverOrCreateFile()

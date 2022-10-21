@@ -1,6 +1,7 @@
 ﻿using TecAlliance.Carpool.Business.Models;
 using TecAlliance.Carpool.Data.Models;
 using TecAlliance.Carpool.Data.Services;
+using System.IO;
 
 namespace TecAlliance.Carpool.Business.Services
 {
@@ -20,7 +21,6 @@ namespace TecAlliance.Carpool.Business.Services
             return carpool;
         }
 
-
         //Convert CarpoolDto to "convertedCarpool" to use in "carpool"
         public CarpoolS ConvertCarpoolDtoToCarpools(CarpoolDto carpoolDto)
         {
@@ -28,17 +28,48 @@ namespace TecAlliance.Carpool.Business.Services
             return convertedCarpool;
         }
 
-        public void GetAllCarpools()
+        //Put all capools in a List
+        public List <CarpoolDto> GetAllCarpools()
         {
-
-            foreach(string line in File.ReadLines("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpool"))
+            CheckForCarpoolFile();
+            List<CarpoolS> everyCarpool= carpoolDataService.AllCarpools();            
+            List<CarpoolDto> AllCarpools = new List<CarpoolDto>();
+            foreach(CarpoolS line in everyCarpool)
             {
-                
+                CarpoolDto carpoolDto = ConvertCarpoolsList(line);
+                AllCarpools.Add(carpoolDto);
             }
+            return AllCarpools;
         }
+
+        //Convert CarpoolS to CarpoolDto
+        public CarpoolDto ConvertCarpoolsList(CarpoolS carpoolS)
+        {
+            var convertedCarpoolsList = new CarpoolDto(carpoolS.FreeSeats, carpoolS.DriverName, carpoolS.StartLoc, carpoolS.EndLoc, carpoolS.TimeDepart, carpoolS.TimeDepart);
+            return convertedCarpoolsList;
+        }
+
+        //Checks if Carpools file Exists, if not create one
+        public void CheckForCarpoolFile()
+        {
+            CheckForCarpoolFileLoop:
+            if (File.Exists("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpool.csv"))
+            {
+
+            }
+            else
+            {
+                File.Create("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpool.csv");
+                goto CheckForCarpoolFileLoop;
+            }
+            
+            
+        }
+
+        //method to delete Carpool file
         public void DeleteAllCarpools()
         {
-            File.Delete("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpools.csv");
+            File.Delete("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpool.csv");
         }
     }
 }

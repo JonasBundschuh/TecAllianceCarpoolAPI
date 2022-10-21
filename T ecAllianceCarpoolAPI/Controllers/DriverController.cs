@@ -30,9 +30,9 @@ namespace T_ecAllianceCarpoolAPI.Controllers
 
         [HttpGet]
         [Route("/getDriver")]
-        public async Task<ActionResult<DriverDto>> Get(DriverDto driver)
+        public async Task<ActionResult<DriverDto>> Get()
         {
-            return NoContent();
+            return driverBusinessService.GetAllDrivers();
         }
 
         [HttpDelete]

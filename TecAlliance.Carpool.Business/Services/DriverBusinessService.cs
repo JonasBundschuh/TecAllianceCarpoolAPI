@@ -18,6 +18,25 @@ namespace TecAlliance.Carpool.Business.Services
             AddSomeNewDriver.AddNewDriver(driver);
         }
 
+
+        public List<DriverDto> GetAllDrivers()
+        {
+            CheckIfDriverFikeExist();
+            List<Driver> everyDriver = driverDataSercice.AllDrivers();
+            List<DriverDto> AllDrivers = new List<DriverDto>();
+            foreach(Driver line in everyDriver)
+            {
+                DriverDto driverDto = ConvertDriverList(line);
+                AllDrivers.Add(driverDto);
+            }
+            return AllDrivers;
+        }
+
+        public DriverDto ConvertDriverList(Driver driver)
+        {
+            var convertedDriverList = new DriverDto(driver.FreeSeats, driver.Smoke, driver.FullName, driver.StartLoc, driver.EndLoc, driver.TimeStart, driver.TimeEnd);
+            return convertedDriverList;
+        }
         //Method to convert DriverDto to "convertedDriver" to use for "driver"
         public Driver ConvertDriverDtoToDriver(DriverDto driverDto)
         {
@@ -28,6 +47,18 @@ namespace TecAlliance.Carpool.Business.Services
         public void DeleteAllDrivers()
         {
             File.Delete("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Drivers\\Driver.csv");
+        }
+
+        public void CheckIfDriverFikeExist()
+        {
+            if (File.Exists("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Drivers\\Driver.csv"))
+            {
+
+            }
+            else
+            {
+                File.Create("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Drivers\\Driver.csv");
+            }
         }
     }
 }

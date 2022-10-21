@@ -31,8 +31,7 @@ namespace T_ecAllianceCarpoolAPI.Controllers
         [Route("/getCarpool")]
         public async Task<ActionResult<List<CarpoolDto>>> Get()
         {
-          
-            return NoContent();
+            return carpoolBusinessService.GetAllCarpools();
         }
 
         //Delete all Carpools
