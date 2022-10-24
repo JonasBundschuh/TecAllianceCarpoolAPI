@@ -34,8 +34,17 @@ namespace T_ecAllianceCarpoolAPI.Controllers
             return carpoolBusinessService.GetAllCarpools();
         }
 
-        [HttpDelete]
+        [HttpGet]
         [Route("/getCarpoolById")]
+        public async Task<ActionResult<CarpoolDto>> GetCarpoolByID(int CarpoolId)
+        {
+            var result = carpoolBusinessService.GetCarpoolByID(CarpoolId);
+            if (result == null)
+            {
+                return StatusCode(404, "CarpoolID not found.");                
+            }
+            return result;
+        }
 
         //Delete all Carpools
         [HttpDelete]

@@ -1,7 +1,6 @@
 ﻿using TecAlliance.Carpool.Business.Models;
 using TecAlliance.Carpool.Data.Models;
 using TecAlliance.Carpool.Data.Services;
-using System.IO;
 
 namespace TecAlliance.Carpool.Business.Services
 {
@@ -27,12 +26,12 @@ namespace TecAlliance.Carpool.Business.Services
         }
 
         //Put all capools in a List
-        public List <CarpoolDto> GetAllCarpools()
+        public List<CarpoolDto> GetAllCarpools()
         {
             CheckForCarpoolFile();
-            List<CarpoolS> everyCarpool= carpoolDataService.AllCarpools();            
+            List<CarpoolS> everyCarpool = carpoolDataService.AllCarpools();
             List<CarpoolDto> AllCarpools = new List<CarpoolDto>();
-            foreach(CarpoolS line in everyCarpool)
+            foreach (CarpoolS line in everyCarpool)
             {
                 CarpoolDto carpoolDto = ConvertCarpoolsList(line);
                 AllCarpools.Add(carpoolDto);
@@ -50,7 +49,7 @@ namespace TecAlliance.Carpool.Business.Services
         //Checks if Carpools file Exists, if not create one
         public void CheckForCarpoolFile()
         {
-            CheckForCarpoolFileLoop:
+        CheckForCarpoolFileLoop:
             if (File.Exists("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpool.csv"))
             {
 
@@ -60,8 +59,8 @@ namespace TecAlliance.Carpool.Business.Services
                 File.Create("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpool.csv");
                 goto CheckForCarpoolFileLoop;
             }
-            
-            
+
+
         }
 
         //method to delete Carpool file
@@ -83,7 +82,7 @@ namespace TecAlliance.Carpool.Business.Services
 
             };
             //for each line (string) in ReadAll (Carpool file) do:
-            foreach(string line in ReadAll)
+            foreach (string line in ReadAll)
             {
                 //Create new string array + split it at the ';'
                 string[] AllCarpools = line.Split(';');
@@ -91,7 +90,7 @@ namespace TecAlliance.Carpool.Business.Services
                 if (!(CarpoolId == Convert.ToInt32(AllCarpools[0])))
                 {
                     //Add updated content to Updated List
-                    UpdatedList.Add(line);  
+                    UpdatedList.Add(line);
                 }
                 else
                 {
@@ -111,6 +110,36 @@ namespace TecAlliance.Carpool.Business.Services
             //Rewrite the Carpool Csv
             File.WriteAllLines("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpool.csv", UpdatedList);
             return DeletedCarpool;
+        }
+
+        public CarpoolDto? GetCarpoolByID(int CarpoolId)
+        {
+            CarpoolDto ChosenCarpool = new CarpoolDto();
+            CheckForCarpoolFile();
+            var AllCarpools = File.ReadAllLines("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpool.csv");
+            foreach (string carpool in AllCarpools)
+            {
+                var splittedCarpool = carpool.Split(';');
+                if (CarpoolId == Convert.ToInt32(splittedCarpool[0]))
+                {
+                    ChosenCarpool.FreeSeats = splittedCarpool[1];
+                    ChosenCarpool.DriverName = splittedCarpool[2];
+                    ChosenCarpool.StartLoc = splittedCarpool[3];
+                    ChosenCarpool.EndLoc = splittedCarpool[4];
+                    ChosenCarpool.TimeStart = splittedCarpool[5];
+                    ChosenCarpool.TimeEnd = splittedCarpool[6];
+                }
+               
+            }
+
+            if (String.IsNullOrEmpty(ChosenCarpool.DriverName))
+            {
+                return null;
+            }
+            return ChosenCarpool;
+
+
+
         }
     }
 }
