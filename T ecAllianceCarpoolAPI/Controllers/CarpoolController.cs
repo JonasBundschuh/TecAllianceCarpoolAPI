@@ -56,7 +56,7 @@ namespace T_ecAllianceCarpoolAPI.Controllers
         }
 
         [HttpDelete]
-        [Route("/deleteCarpoolByID{CarpoolID}")]
+        [Route("/deleteCarpoolByID")]
         public async Task<ActionResult<CarpoolDto>> DeleteByID(int CarpoolID)
         {
             var result = carpoolBusinessService.DeleteCarpoolbyID(CarpoolID);
@@ -65,6 +65,19 @@ namespace T_ecAllianceCarpoolAPI.Controllers
                 return StatusCode(404, "CarpoolID not found");
             }
             return result;
-        }        
+        }
+        [HttpPut]
+        [Route("/EditCarpoolByID")]
+        public async Task<ActionResult<CarpoolDto>> EditCarpoolByID(int CarpoolID, int FreeSeats, string NewDriver)
+        {
+            var result = carpoolBusinessService.EditCarpoolByID(CarpoolID, FreeSeats, NewDriver);
+            if(result == null)
+            {
+                return StatusCode(404, "CarpoolID not found.");
+            }
+            return result;
+        } 
+
+        
     }
 }

@@ -21,7 +21,7 @@ namespace TecAlliance.Carpool.Business.Services
         //Convert CarpoolDto to "convertedCarpool" to use in "carpool"
         public CarpoolS ConvertCarpoolDtoToCarpools(CarpoolDto carpoolDto)
         {
-            var convertedCarpool = new CarpoolS(carpoolDto.FreeSeats, carpoolDto.DriverName, carpoolDto.StartLoc, carpoolDto.EndLoc, carpoolDto.TimeStart, carpoolDto.TimeEnd);
+            var convertedCarpool = new CarpoolS(Convert.ToString(carpoolDto.FreeSeats), carpoolDto.DriverName, carpoolDto.StartLoc, carpoolDto.EndLoc, carpoolDto.TimeStart, carpoolDto.TimeEnd);
             return convertedCarpool;
         }
 
@@ -42,7 +42,7 @@ namespace TecAlliance.Carpool.Business.Services
         //Convert CarpoolS to CarpoolDto
         public CarpoolDto ConvertCarpoolsList(CarpoolS carpoolS)
         {
-            var convertedCarpoolsList = new CarpoolDto(carpoolS.FreeSeats, carpoolS.DriverName, carpoolS.StartLoc, carpoolS.EndLoc, carpoolS.TimeDepart, carpoolS.TimeDepart);
+            var convertedCarpoolsList = new CarpoolDto(Convert.ToInt32(carpoolS.FreeSeats), carpoolS.DriverName, carpoolS.StartLoc, carpoolS.EndLoc, carpoolS.TimeDepart, carpoolS.TimeDepart);
             return convertedCarpoolsList;
         }
 
@@ -95,7 +95,7 @@ namespace TecAlliance.Carpool.Business.Services
                 else
                 {
                     //Give each prop their place
-                    DeletedCarpool.FreeSeats = AllCarpools[1];
+                    DeletedCarpool.FreeSeats = Convert.ToInt32(AllCarpools[1]);
                     DeletedCarpool.DriverName = AllCarpools[2];
                     DeletedCarpool.StartLoc = AllCarpools[3];
                     DeletedCarpool.EndLoc = AllCarpools[4];
@@ -112,6 +112,7 @@ namespace TecAlliance.Carpool.Business.Services
             return DeletedCarpool;
         }
 
+        //Method to get any carpool by a ID entered by the user
         public CarpoolDto? GetCarpoolByID(int CarpoolId)
         {
             CarpoolDto ChosenCarpool = new CarpoolDto();
@@ -122,14 +123,14 @@ namespace TecAlliance.Carpool.Business.Services
                 var splittedCarpool = carpool.Split(';');
                 if (CarpoolId == Convert.ToInt32(splittedCarpool[0]))
                 {
-                    ChosenCarpool.FreeSeats = splittedCarpool[1];
+                    ChosenCarpool.FreeSeats = Convert.ToInt32(splittedCarpool[1]);
                     ChosenCarpool.DriverName = splittedCarpool[2];
                     ChosenCarpool.StartLoc = splittedCarpool[3];
                     ChosenCarpool.EndLoc = splittedCarpool[4];
                     ChosenCarpool.TimeStart = splittedCarpool[5];
                     ChosenCarpool.TimeEnd = splittedCarpool[6];
                 }
-               
+
             }
 
             if (String.IsNullOrEmpty(ChosenCarpool.DriverName))
@@ -137,9 +138,42 @@ namespace TecAlliance.Carpool.Business.Services
                 return null;
             }
             return ChosenCarpool;
+        }
 
+        public CarpoolDto? EditCarpoolByID(int CarpoolID, int FreeSeats, string NewDriver)
+        {
+            CarpoolDto chosenCarpool = new CarpoolDto();
+            CheckForCarpoolFile();
+            var ReadAll = File.ReadAllLines("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpool.csv");
+            List<string> UpdatedList = new List<string>();
+            foreach (string carpool in ReadAll)
+            {
+                var SplittedCarpool = carpool.Split(";");
+                if (CarpoolID == Convert.ToInt32(SplittedCarpool[0]))
+                {
+                    chosenCarpool.FreeSeats = Convert.ToInt32(SplittedCarpool[1]);
+                    chosenCarpool.DriverName = SplittedCarpool[2];
+                    chosenCarpool.StartLoc = SplittedCarpool[3];
+                    chosenCarpool.EndLoc = SplittedCarpool[4];
+                    chosenCarpool.TimeStart = SplittedCarpool[5];
+                    chosenCarpool.TimeEnd = SplittedCarpool[6];
 
+                    SplittedCarpool[1] = Convert.ToString(FreeSeats);
+                    SplittedCarpool[2] = NewDriver;
 
+                    UpdatedList.Add($"{SplittedCarpool[0]};{SplittedCarpool[1]};{SplittedCarpool[2]};{SplittedCarpool[3]};{SplittedCarpool[4]};{SplittedCarpool[5]};{SplittedCarpool[6]}");
+                }
+                else
+                {
+                    UpdatedList.Add(carpool);
+                }
+            }
+            if (String.IsNullOrEmpty(chosenCarpool.TimeEnd))
+            {
+                return null;
+            }
+            File.WriteAllLines("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpool.csv", UpdatedList);
+            return chosenCarpool;
         }
     }
 }
