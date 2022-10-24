@@ -28,7 +28,7 @@ namespace T_ecAllianceCarpoolAPI.Controllers
 
         //Get all Carpools
         [HttpGet]
-        [Route("/getCarpool")]
+        [Route("/getAllCarpools")]
         public async Task<ActionResult<List<CarpoolDto>>> Get()
         {
             return carpoolBusinessService.GetAllCarpools();
@@ -40,8 +40,19 @@ namespace T_ecAllianceCarpoolAPI.Controllers
         public async Task<ActionResult<CarpoolS>> Delete()
         {
             carpoolBusinessService.DeleteAllCarpools();
-            return StatusCode(200, "Successfully deleted all Carpools");
+            return StatusCode(200, "successfully deleted all Carpools");
         }
-        
+
+        [HttpDelete]
+        [Route("/deleteCarpoolByID{CarpoolID}")]
+        public async Task<ActionResult<CarpoolDto>> DeleteByID(int CarpoolID)
+        {
+            var result = carpoolBusinessService.DeleteCarpoolbyID(CarpoolID);
+            if ( result == null)
+            {
+                return StatusCode(404, "CarpoolID not found");
+            }
+            return result;
+        }        
     }
 }

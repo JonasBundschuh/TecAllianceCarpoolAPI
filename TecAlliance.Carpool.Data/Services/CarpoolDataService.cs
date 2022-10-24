@@ -38,18 +38,20 @@ namespace TecAlliance.Carpool.Data.Services
             {
                 
                 string[] splittedCarpools = carpool.Split(';');
-                var foo = new CarpoolS(
-                    splittedCarpools[0],
-                    splittedCarpools[1],
-                    splittedCarpools[2],
-                    splittedCarpools[3],
-                    splittedCarpools[4],
-                    splittedCarpools[5]
+                var foo = new CarpoolS
+                    (
+                        splittedCarpools[0],
+                        splittedCarpools[1],
+                        splittedCarpools[2],
+                        splittedCarpools[3],
+                        splittedCarpools[4],
+                        splittedCarpools[5]
                     );
                 carpools.Add(foo);
             }
             return carpools;
         }
+
 
         public void CheckForOrCreateCarpoolFile()
         {

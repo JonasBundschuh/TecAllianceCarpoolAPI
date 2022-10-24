@@ -16,11 +16,12 @@
             EndLoc = endLoc;
             TimeStart = timeStart;
             TimeEnd = timeEnd;
-        }
 
-        //public void AddNewDriver()
-        //{
-        //
-        //}
-    }
+            
+        }
+        public CarpoolDto()
+        {
+
+        }
+    }        
 }

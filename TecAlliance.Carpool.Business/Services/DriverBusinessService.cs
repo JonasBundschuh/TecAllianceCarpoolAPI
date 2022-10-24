@@ -18,13 +18,12 @@ namespace TecAlliance.Carpool.Business.Services
             AddSomeNewDriver.AddNewDriver(driver);
         }
 
-
         public List<DriverDto> GetAllDrivers()
         {
-            CheckIfDriverFikeExist();
+            CheckIfDriverFileExist();
             List<Driver> everyDriver = driverDataSercice.AllDrivers();
             List<DriverDto> AllDrivers = new List<DriverDto>();
-            foreach(Driver line in everyDriver)
+            foreach (Driver line in everyDriver)
             {
                 DriverDto driverDto = ConvertDriverList(line);
                 AllDrivers.Add(driverDto);
@@ -49,7 +48,7 @@ namespace TecAlliance.Carpool.Business.Services
             File.Delete("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Drivers\\Driver.csv");
         }
 
-        public void CheckIfDriverFikeExist()
+        public void CheckIfDriverFileExist()
         {
             if (File.Exists("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Drivers\\Driver.csv"))
             {
@@ -60,5 +59,46 @@ namespace TecAlliance.Carpool.Business.Services
                 File.Create("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Drivers\\Driver.csv");
             }
         }
+
+        public DriverDto? DeleteDriverbyID(int DriverId)
+        {
+            var ReadAll = File.ReadAllLines("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Drivers\\Driver.csv");
+            List<string> UpdatedList = new List<string>();
+            var DeletedDriver = new DriverDto() { };
+            {
+
+            };
+            foreach (string line in ReadAll)
+            {
+                string[] AllDrivers = line.Split(';');
+                if (!(DriverId == Convert.ToInt32(AllDrivers[0])))
+                {
+                    UpdatedList.Add(line);
+                }
+                else
+                {
+                    DeletedDriver.FreeSeats = AllDrivers[1];
+                    DeletedDriver.Smoke = AllDrivers[2];
+                    DeletedDriver.FullName = AllDrivers[3];
+                    DeletedDriver.StartLoc = AllDrivers[4];
+                    DeletedDriver.EndLoc = AllDrivers[5];
+                    DeletedDriver.TimeStart = AllDrivers[6];
+                    DeletedDriver.TimeEnd = AllDrivers[7];
+                }
+            }
+            if (UpdatedList.Count() == ReadAll.Count())
+            {
+                return null;
+            }
+            File.WriteAllLines("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Drivers\\Driver.csv", UpdatedList);
+            return DeletedDriver;
+        }
+
+        public void CheckForRightID(string[] AllDrivers, string line)
+        {
+
+        }
+
+
     }
 }

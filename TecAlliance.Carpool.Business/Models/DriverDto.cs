@@ -23,7 +23,7 @@
             TimeEnd = timeEnd;
         }
 
-        public void AddNewDriver()
+        public DriverDto()
         {
 
         }

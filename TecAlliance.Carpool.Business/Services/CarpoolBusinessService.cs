@@ -7,10 +7,8 @@ namespace TecAlliance.Carpool.Business.Services
 {
     public class CarpoolBusinessService
     {
-
         // Create a new CarpoolDataService
         CarpoolDataService carpoolDataService = new CarpoolDataService();
-
 
         //Add a new Carpool
         public CarpoolS AddCarpool(CarpoolDto carpoolDto)
@@ -70,6 +68,39 @@ namespace TecAlliance.Carpool.Business.Services
         public void DeleteAllCarpools()
         {
             File.Delete("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpool.csv");
+        }
+
+        public CarpoolDto? DeleteCarpoolbyID(int CarpoolId)
+        {
+            var ReadAll = File.ReadAllLines("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpool.csv");
+            List<string> UpdatedList = new List<string>();
+            var DeletedCarpool = new CarpoolDto() { };
+            {
+
+            };
+            foreach(string line in ReadAll)
+            {
+                string[] AllCarpools = line.Split(';');
+                if (!(CarpoolId == Convert.ToInt32(AllCarpools[0])))
+                {
+                    UpdatedList.Add(line);  
+                }
+                else
+                {
+                    DeletedCarpool.FreeSeats = AllCarpools[1];
+                    DeletedCarpool.DriverName = AllCarpools[2];
+                    DeletedCarpool.StartLoc = AllCarpools[3];
+                    DeletedCarpool.EndLoc = AllCarpools[4];
+                    DeletedCarpool.TimeStart = AllCarpools[5];
+                    DeletedCarpool.TimeEnd = AllCarpools[6];
+                }
+            }
+            if (UpdatedList.Count() == ReadAll.Count())
+            {
+                return null;
+            }
+            File.WriteAllLines("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpool.csv", UpdatedList);
+            return DeletedCarpool;
         }
     }
 }

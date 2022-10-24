@@ -30,7 +30,7 @@ namespace T_ecAllianceCarpoolAPI.Controllers
 
         [HttpGet]
         [Route("/getDriver")]
-        public async Task<ActionResult<DriverDto>> Get()
+        public async Task<ActionResult<List<DriverDto>>> Get()
         {
             return driverBusinessService.GetAllDrivers();
         }
@@ -41,6 +41,18 @@ namespace T_ecAllianceCarpoolAPI.Controllers
         {
             driverBusinessService.DeleteAllDrivers();
             return StatusCode(200, "Successfully deleted all Drivers");
+        }
+
+        [HttpDelete]
+        [Route("/deleteDriverByID/{DriverId}")]
+        public async Task<ActionResult<DriverDto>> DeleteByID(int DriverId)
+        {
+            var result = driverBusinessService.DeleteDriverbyID(DriverId);
+            if (result == null)
+            {
+                return StatusCode(404, "UserID not found");
+            }
+            return result;
         }
     }
 }
