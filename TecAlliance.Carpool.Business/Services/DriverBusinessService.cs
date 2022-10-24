@@ -65,9 +65,7 @@ namespace TecAlliance.Carpool.Business.Services
             var ReadAll = File.ReadAllLines("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Drivers\\Driver.csv");
             List<string> UpdatedList = new List<string>();
             var DeletedDriver = new DriverDto() { };
-            {
-
-            };
+            
             foreach (string line in ReadAll)
             {
                 string[] AllDrivers = line.Split(';');
@@ -92,6 +90,40 @@ namespace TecAlliance.Carpool.Business.Services
             }
             File.WriteAllLines("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Drivers\\Driver.csv", UpdatedList);
             return DeletedDriver;
+        }
+
+        public DriverDto? GetDriverByID(int DriverId)
+        {
+            //check if the Driver file exists
+            CheckIfDriverFileExist();
+            //read all strings (driver) in Driver file
+            var AllDrivers = File.ReadAllLines("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Drivers\\Driver.csv");
+            //Create a new DriverDto
+            DriverDto ChosenDriver = new DriverDto();
+            
+            //for each string (driver) in Driver file (AllDrivers) do:
+            foreach (string driver in AllDrivers)
+            {
+                //split the string at ';'
+                var splittedDriver = driver.Split(';'); 
+                if (DriverId == Convert.ToInt32(splittedDriver[0]))
+                {
+                    ChosenDriver.FreeSeats = splittedDriver[1];
+                    ChosenDriver.Smoke = splittedDriver[2];
+                    ChosenDriver.FullName = splittedDriver[3];
+                    ChosenDriver.StartLoc = splittedDriver[4];
+                    ChosenDriver.EndLoc = splittedDriver[5];
+                    ChosenDriver.TimeStart = splittedDriver[6];
+                    ChosenDriver.TimeEnd = splittedDriver[7];
+                }
+            }
+
+            //Alternative to check if the driver with the ID entered by the user even exists
+            if (String.IsNullOrEmpty(ChosenDriver.FullName))
+            {
+                return null;
+            }
+            return ChosenDriver;
         }
 
         public void CheckForRightID(string[] AllDrivers, string line)

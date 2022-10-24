@@ -70,23 +70,32 @@ namespace TecAlliance.Carpool.Business.Services
             File.Delete("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpool.csv");
         }
 
+        //Method to delete Carpool by its ID
         public CarpoolDto? DeleteCarpoolbyID(int CarpoolId)
         {
+            //Go thru all strings in Carpool File
             var ReadAll = File.ReadAllLines("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpool.csv");
+            //Create List for later, Has the same content from Carpool file but without the deleted one
             List<string> UpdatedList = new List<string>();
+            //Create a new CarpoolDto
             var DeletedCarpool = new CarpoolDto() { };
             {
 
             };
+            //for each line (string) in ReadAll (Carpool file) do:
             foreach(string line in ReadAll)
             {
+                //Create new string array + split it at the ';'
                 string[] AllCarpools = line.Split(';');
+                //if the Carpool ID the user entered doesn'tmatches a ID in Carpool file do:
                 if (!(CarpoolId == Convert.ToInt32(AllCarpools[0])))
                 {
+                    //Add updated content to Updated List
                     UpdatedList.Add(line);  
                 }
                 else
                 {
+                    //Give each prop their place
                     DeletedCarpool.FreeSeats = AllCarpools[1];
                     DeletedCarpool.DriverName = AllCarpools[2];
                     DeletedCarpool.StartLoc = AllCarpools[3];
@@ -99,6 +108,7 @@ namespace TecAlliance.Carpool.Business.Services
             {
                 return null;
             }
+            //Rewrite the Carpool Csv
             File.WriteAllLines("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpool.csv", UpdatedList);
             return DeletedCarpool;
         }

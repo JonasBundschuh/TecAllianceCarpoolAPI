@@ -22,6 +22,5 @@
             TimeStart = timeStart;
             TimeEnd = timeEnd;
         }
-        
     }
 }

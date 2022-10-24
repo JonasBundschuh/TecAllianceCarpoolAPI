@@ -34,6 +34,9 @@ namespace T_ecAllianceCarpoolAPI.Controllers
             return carpoolBusinessService.GetAllCarpools();
         }
 
+        [HttpDelete]
+        [Route("/getCarpoolById")]
+
         //Delete all Carpools
         [HttpDelete]
         [Route("/deleteAllCarpools")]

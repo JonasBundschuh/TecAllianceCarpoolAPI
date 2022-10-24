@@ -4,8 +4,6 @@ namespace TecAlliance.Carpool.Data.Services
 {
     public class CarpoolDataService
     {
-
-
         //Method to add a new carpool
         public void AddNewCarpool(CarpoolS carpool)
         {
@@ -22,11 +20,8 @@ namespace TecAlliance.Carpool.Data.Services
             File.AppendAllText($"C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpool.csv", newCarPoolDataSet);
         }
 
-        //Method to check if Carpools file exists, if not create one
-       
 
-
-        //Object List with all carpools
+        //List of all Carpools
         public List<CarpoolS> AllCarpools()
         {
             //Read all lines in Carpool.csv
@@ -52,7 +47,7 @@ namespace TecAlliance.Carpool.Data.Services
             return carpools;
         }
 
-
+        //Checks if Carpoolfile exists, if not create one
         public void CheckForOrCreateCarpoolFile()
         {
             if (File.Exists("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpool.csv"))

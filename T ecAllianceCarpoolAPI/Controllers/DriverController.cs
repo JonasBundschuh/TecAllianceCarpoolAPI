@@ -10,7 +10,6 @@ namespace T_ecAllianceCarpoolAPI.Controllers
     public class DriverController : ControllerBase
     {
         private DriverBusinessService driverBusinessService;
-        private DriverdataService driverdataService;
 
         private readonly ILogger<DriverController> _logger;
 
@@ -35,6 +34,18 @@ namespace T_ecAllianceCarpoolAPI.Controllers
             return driverBusinessService.GetAllDrivers();
         }
 
+        [HttpGet]
+        [Route("/getDriverBy/{DriverId}")]
+        public async Task<ActionResult<DriverDto>> GetDriverByID(int DriverId)
+        {
+            var result = driverBusinessService.GetDriverByID(DriverId);
+            if (result == null)
+            {
+                return StatusCode(404, "UserID not found");
+            }
+            return result;
+        }
+
         [HttpDelete]
         [Route("/deleteAllDrivers")]
         public async Task<ActionResult<DriverDto>> Delete(DriverDto driver)
@@ -54,5 +65,7 @@ namespace T_ecAllianceCarpoolAPI.Controllers
             }
             return result;
         }
+
+        
     }
 }
