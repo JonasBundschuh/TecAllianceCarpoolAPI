@@ -66,6 +66,18 @@ namespace T_ecAllianceCarpoolAPI.Controllers
             return result;
         }
 
+        [HttpPut]
+        [Route("/editDriverbyID")]
+        public async Task<ActionResult<DriverDto>> EditDriverByID(int DriverID, string newDriverName, string NowSmoker)
+        {
+            var result = driverBusinessService.EditDriverByID(DriverID, newDriverName, NowSmoker);
+            if (result == null)
+            {
+                return StatusCode(404, "UserID not found.");
+            }
+            return result;
+        }
+
         
     }
 }

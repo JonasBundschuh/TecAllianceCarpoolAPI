@@ -126,6 +126,43 @@ namespace TecAlliance.Carpool.Business.Services
             return ChosenDriver;
         }
 
+        public DriverDto? EditDriverByID(int DriverID, string newDriverName, string NowSmoker)
+        {
+            DriverDto chosenDriver = new DriverDto();
+            CheckIfDriverFileExist();
+            var ReadAll = File.ReadAllLines("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Drivers\\Driver.csv");
+            List<string> UpdatedList = new List<string>();
+            foreach(string driver in ReadAll)
+            {
+                var SplittedCarpool = driver.Split(';');
+                if (DriverID == Convert.ToInt32(SplittedCarpool[0]))
+                {
+                    chosenDriver.FreeSeats = SplittedCarpool[1];
+                    chosenDriver.Smoke = SplittedCarpool[2];
+                    chosenDriver.FullName = SplittedCarpool[3];
+                    chosenDriver.StartLoc = SplittedCarpool[4];
+                    chosenDriver.EndLoc = SplittedCarpool[5];
+                    chosenDriver.TimeStart = SplittedCarpool[6];
+                    chosenDriver.TimeEnd = SplittedCarpool[7];
+
+                    SplittedCarpool[2] = NowSmoker;
+                    SplittedCarpool[3] = newDriverName;
+
+                    UpdatedList.Add($"{SplittedCarpool[0]};{SplittedCarpool[1]};{SplittedCarpool[2]};{SplittedCarpool[3]};{SplittedCarpool[4]};{SplittedCarpool[5]};{SplittedCarpool[6]};{SplittedCarpool[7]};");
+                }
+                else
+                {
+                    UpdatedList.Add(driver);
+                }
+            }
+            if (String.IsNullOrEmpty(chosenDriver.EndLoc))
+            {
+                return null;
+            }
+            File.WriteAllLines("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Drivers\\Driver.csv", UpdatedList);
+            return chosenDriver;
+        }
+
         public void CheckForRightID(string[] AllDrivers, string line)
         {
 

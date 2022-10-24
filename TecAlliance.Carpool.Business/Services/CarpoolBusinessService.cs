@@ -140,6 +140,8 @@ namespace TecAlliance.Carpool.Business.Services
             return ChosenCarpool;
         }
 
+
+        //Method to edit a existing carpool buy the ID entered by the User
         public CarpoolDto? EditCarpoolByID(int CarpoolID, int FreeSeats, string NewDriver)
         {
             CarpoolDto chosenCarpool = new CarpoolDto();
