@@ -1,10 +1,18 @@
-﻿using TecAlliance.Carpool.Data.Models;
+﻿using System.Reflection;
+using TecAlliance.Carpool.Data.Models;
+
 
 namespace TecAlliance.Carpool.Data.Services
 {
     public class DriverdataService
     {
-
+        public string DriverPath()
+        {
+            var originalpath = Assembly.GetExecutingAssembly().Location;
+            string path = Path.GetDirectoryName(originalpath);
+            string FinalPath = Path.Combine(path, @"..\..\..\..\..\", "TecAlliance.Carpool.Api\\TecAlliance.Carpool.Data\\CSV-Files");
+            return FinalPath.ToString();
+        }
         //Add a new Driver (line) to Driver csv
         public void AddNewDriver(Driver driver)
         {
@@ -12,19 +20,19 @@ namespace TecAlliance.Carpool.Data.Services
             CheckForDriverOrCreateFile();
 
             //Get amount of lines + Count up (The amount of lines is used as ID)
-            var DriverCount = File.ReadAllLines("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Drivers\\Driver.csv").Count() + 1;
+            var DriverCount = File.ReadAllLines($"{DriverPath()}\\Driver.csv").Count() + 1;
 
             //Create Variable that contains all contents for the Driver Data
             string newDriverDataSet = $"{DriverCount};{driver.FreeSeats};{driver.Smoke};{driver.FullName};{driver.StartLoc};{driver.EndLoc};{driver.TimeStart};{driver.TimeEnd}\n";
 
             //Write dataset in Driver csv file
-            File.AppendAllText($"C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Drivers\\Driver.csv", newDriverDataSet);
+            File.AppendAllText($"{DriverPath()}\\Driver.csv", newDriverDataSet);
         }
 
 
         public List<Driver> AllDrivers()
         {
-            var readText = File.ReadAllLines("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Drivers\\Driver.csv");
+            var readText = File.ReadAllLines($"{DriverPath()}\\Driver.csv");
             List<Driver> drivers = new List<Driver>();
             foreach(var line in readText)
             {
@@ -47,13 +55,13 @@ namespace TecAlliance.Carpool.Data.Services
         //Check if Driver file exists, if not create one
         public void CheckForDriverOrCreateFile()
         {
-            if (File.Exists("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Drivers\\Driver.csv"))
+            if (File.Exists($"{DriverPath()}\\Driver.csv"))
             {
 
             }
             else
             {
-                File.Create("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Drivers\\Driver.csv");
+                File.Create($"{DriverPath()}\\Driver.csv");
             }
         }
     }
