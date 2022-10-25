@@ -55,6 +55,7 @@ namespace T_ecAllianceCarpoolAPI.Controllers
             return StatusCode(200, "successfully deleted all Carpools");
         }
 
+        //Delete a Carpool by ID given by the User
         [HttpDelete]
         [Route("/deleteCarpoolByID")]
         public async Task<ActionResult<CarpoolDto>> DeleteByID(int CarpoolID)
@@ -66,6 +67,8 @@ namespace T_ecAllianceCarpoolAPI.Controllers
             }
             return result;
         }
+        
+        //Edit the carpool by ID given by the User
         [HttpPut]
         [Route("/EditCarpoolByID")]
         public async Task<ActionResult<CarpoolDto>> EditCarpoolByID(int CarpoolID, int FreeSeats, string NewDriver)

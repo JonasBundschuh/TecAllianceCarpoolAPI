@@ -5,6 +5,7 @@ namespace TecAlliance.Carpool.Data.Services
 {
     public class CarpoolDataService
     {
+        //Get the Carpool file path dynamically
         public string CarpoolPath()
         {
             var originalpath = Assembly.GetExecutingAssembly().Location;
@@ -72,6 +73,12 @@ namespace TecAlliance.Carpool.Data.Services
             {
                 File.Create($"{CarpoolPath}\\Carpool.csv");
             }
+        }
+
+        //delete Carpool file
+        public void DeleteAllCarpools()
+        {
+            File.Delete($"{CarpoolPath()}\\Carpool.csv");
         }
     }
 }

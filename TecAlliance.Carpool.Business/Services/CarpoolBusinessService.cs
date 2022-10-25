@@ -66,10 +66,11 @@ namespace TecAlliance.Carpool.Business.Services
 
         }
 
-        //method to delete Carpool file
+        //Delete the Carpool file
         public void DeleteAllCarpools()
         {
-            File.Delete($"{CarpoolPath()}\\Carpool.csv");
+            var DeleteAllCarpoolsAtOnce = new CarpoolDataService();
+            DeleteAllCarpoolsAtOnce.DeleteAllCarpools();
         }
 
         //Method to delete Carpool by its ID
@@ -143,8 +144,7 @@ namespace TecAlliance.Carpool.Business.Services
             return ChosenCarpool;
         }
 
-
-        //Method to edit a existing carpool buy the ID entered by the User
+        //Method to edit a existing carpool by the ID entered by the User
         public CarpoolDto? EditCarpoolByID(int CarpoolID, int FreeSeats, string NewDriver)
         {;
             CarpoolDto chosenCarpool = new CarpoolDto();
@@ -183,6 +183,7 @@ namespace TecAlliance.Carpool.Business.Services
             return chosenCarpool;
         }
 
+        //Get the path dynamically
         public string CarpoolPath()
         {
             var originalpath = Assembly.GetExecutingAssembly().Location;
