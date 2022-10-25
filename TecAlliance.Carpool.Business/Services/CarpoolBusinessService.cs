@@ -53,13 +53,13 @@ namespace TecAlliance.Carpool.Business.Services
         public void CheckForCarpoolFile()
         {
         CheckForCarpoolFileLoop:
-            if (File.Exists("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpool.csv"))
+            if (File.Exists($"{CarpoolPath()}\\Carpool.csv"))
             {
 
             }
             else
             {
-                File.Create("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpool.csv");
+                File.Create($"{CarpoolPath()}\\Carpool.csv");
                 goto CheckForCarpoolFileLoop;
             }
 
@@ -69,14 +69,14 @@ namespace TecAlliance.Carpool.Business.Services
         //method to delete Carpool file
         public void DeleteAllCarpools()
         {
-            File.Delete("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpool.csv");
+            File.Delete($"{CarpoolPath()}\\Carpool.csv");
         }
 
         //Method to delete Carpool by its ID
         public CarpoolDto? DeleteCarpoolbyID(int CarpoolId)
         {
             //Go thru all strings in Carpool File
-            var ReadAll = File.ReadAllLines("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpool.csv");
+            var ReadAll = File.ReadAllLines($"{CarpoolPath()}\\Carpool.csv");
             //Create List for later, Has the same content from Carpool file but without the deleted one
             List<string> UpdatedList = new List<string>();
             //Create a new CarpoolDto
@@ -120,7 +120,7 @@ namespace TecAlliance.Carpool.Business.Services
         {
             CarpoolDto ChosenCarpool = new CarpoolDto();
             CheckForCarpoolFile();
-            var AllCarpools = File.ReadAllLines("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpool.csv");
+            var AllCarpools = File.ReadAllLines($"{CarpoolPath()}\\Carpool.csv");
             foreach (string carpool in AllCarpools)
             {
                 var splittedCarpool = carpool.Split(';');
@@ -146,11 +146,10 @@ namespace TecAlliance.Carpool.Business.Services
 
         //Method to edit a existing carpool buy the ID entered by the User
         public CarpoolDto? EditCarpoolByID(int CarpoolID, int FreeSeats, string NewDriver)
-        {
-            Directory.CreateDirectory(@"C:\\Users\\usr\\CarpoolApp\\Bin");
+        {;
             CarpoolDto chosenCarpool = new CarpoolDto();
             CheckForCarpoolFile();
-            var ReadAll = File.ReadAllLines("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpool.csv");
+            var ReadAll = File.ReadAllLines($"{CarpoolPath()}\\Carpool.csv");
             var test = Assembly.GetExecutingAssembly().Location;
             List<string> UpdatedList = new List<string>();
             foreach (string carpool in ReadAll)
@@ -180,8 +179,16 @@ namespace TecAlliance.Carpool.Business.Services
             {
                 return null;
             }
-            File.WriteAllLines("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpool.csv", UpdatedList);
+            File.WriteAllLines($"{CarpoolPath()}\\Carpool.csv", UpdatedList);
             return chosenCarpool;
+        }
+
+        public string CarpoolPath()
+        {
+            var originalpath = Assembly.GetExecutingAssembly().Location;
+            string path = Path.GetDirectoryName(originalpath);
+            string FinalPath = Path.Combine(path, @"..\..\..\..\..\", "TecAlliance.Carpool.Api\\TecAlliance.Carpool.Data\\CSV-Files");
+            return FinalPath.ToString();
         }
     }
 }

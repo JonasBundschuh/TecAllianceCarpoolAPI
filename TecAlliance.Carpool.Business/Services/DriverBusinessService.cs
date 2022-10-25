@@ -19,6 +19,7 @@ namespace TecAlliance.Carpool.Business.Services
             var driver = ConvertDriverDtoToDriver(driverDto);
             var AddSomeNewDriver = new DriverdataService();
             AddSomeNewDriver.AddNewDriver(driver);
+
         }
 
         public List<DriverDto> GetAllDrivers()
@@ -48,24 +49,24 @@ namespace TecAlliance.Carpool.Business.Services
 
         public void DeleteAllDrivers()
         {
-            File.Delete("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Drivers\\Driver.csv");
+            File.Delete($"{DriverPath}\\Driver.csv");
         }
 
         public void CheckIfDriverFileExist()
         {
-            if (File.Exists("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Drivers\\Driver.csv"))
+            if (File.Exists($"{DriverPath}\\Driver.csv"))
             {
 
             }
             else
             {
-                File.Create("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Drivers\\Driver.csv");
+                File.Create($"{DriverPath}\\Driver.csv");
             }
         }
 
         public DriverDto? DeleteDriverbyID(int DriverId)
         {
-            var ReadAll = File.ReadAllLines("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Drivers\\Driver.csv");
+            var ReadAll = File.ReadAllLines($"{DriverPath}\\Driver.csv");
             List<string> UpdatedList = new List<string>();
             var DeletedDriver = new DriverDto() { };
             
@@ -91,7 +92,7 @@ namespace TecAlliance.Carpool.Business.Services
             {
                 return null;
             }
-            File.WriteAllLines("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Drivers\\Driver.csv", UpdatedList);
+            File.WriteAllLines($"{DriverPath}\\Driver.csv", UpdatedList);
             return DeletedDriver;
         }
 
@@ -100,7 +101,7 @@ namespace TecAlliance.Carpool.Business.Services
             //check if the Driver file exists
             CheckIfDriverFileExist();
             //read all strings (driver) in Driver file
-            var AllDrivers = File.ReadAllLines("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Drivers\\Driver.csv");
+            var AllDrivers = File.ReadAllLines($"{DriverPath}\\Driver.csv");
             //Create a new DriverDto
             DriverDto ChosenDriver = new DriverDto();
             
@@ -133,7 +134,7 @@ namespace TecAlliance.Carpool.Business.Services
         {
             DriverDto chosenDriver = new DriverDto();
             CheckIfDriverFileExist();
-            var ReadAll = File.ReadAllLines("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Drivers\\Driver.csv");
+            var ReadAll = File.ReadAllLines($"{DriverPath}\\Driver.csv");
             List<string> UpdatedList = new List<string>();
             foreach(string driver in ReadAll)
             {
@@ -162,7 +163,7 @@ namespace TecAlliance.Carpool.Business.Services
             {
                 return null;
             }
-            File.WriteAllLines("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Drivers\\Driver.csv", UpdatedList);
+            File.WriteAllLines($"{DriverPath}\\Driver.csv", UpdatedList);
             return chosenDriver;
         }
 
@@ -175,9 +176,8 @@ namespace TecAlliance.Carpool.Business.Services
         {
             var originalpath = Assembly.GetExecutingAssembly().Location;
             string path = Path.GetDirectoryName(originalpath);
-            string NewPath = Path.Combine(path, @"..\..\..\..\..\..\");
-            var finalPath = File.Create($"{NewPath}\\Driver.csv");
-            return finalPath.ToString();
+            string FinalPath = Path.Combine(path, @"..\..\..\..\..\", "TecAlliance.Carpool.Api\\TecAlliance.Carpool.Data\\CSV-Files");
+            return FinalPath.ToString();
         }
     }
 }
