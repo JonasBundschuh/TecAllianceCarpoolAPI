@@ -1,4 +1,6 @@
-﻿using TecAlliance.Carpool.Business.Models;
+﻿using System.Diagnostics.Eventing.Reader;
+using System.Reflection;
+using TecAlliance.Carpool.Business.Models;
 using TecAlliance.Carpool.Data.Models;
 using TecAlliance.Carpool.Data.Services;
 
@@ -16,6 +18,7 @@ namespace TecAlliance.Carpool.Business.Services
             var AddSomeNewCarpool = new CarpoolDataService();
             AddSomeNewCarpool.AddNewCarpool(carpool);
             return carpool;
+           
         }
 
         //Convert CarpoolDto to "convertedCarpool" to use in "carpool"
@@ -144,9 +147,11 @@ namespace TecAlliance.Carpool.Business.Services
         //Method to edit a existing carpool buy the ID entered by the User
         public CarpoolDto? EditCarpoolByID(int CarpoolID, int FreeSeats, string NewDriver)
         {
+            Directory.CreateDirectory(@"C:\\Users\\usr\\CarpoolApp\\Bin");
             CarpoolDto chosenCarpool = new CarpoolDto();
             CheckForCarpoolFile();
             var ReadAll = File.ReadAllLines("C:\\001\\012TecAllianceCarpoolAPI\\Bin\\Carpools\\Carpool.csv");
+            var test = Assembly.GetExecutingAssembly().Location;
             List<string> UpdatedList = new List<string>();
             foreach (string carpool in ReadAll)
             {
@@ -165,6 +170,7 @@ namespace TecAlliance.Carpool.Business.Services
 
                     UpdatedList.Add($"{SplittedCarpool[0]};{SplittedCarpool[1]};{SplittedCarpool[2]};{SplittedCarpool[3]};{SplittedCarpool[4]};{SplittedCarpool[5]};{SplittedCarpool[6]}");
                 }
+                
                 else
                 {
                     UpdatedList.Add(carpool);

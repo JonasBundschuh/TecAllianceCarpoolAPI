@@ -1,4 +1,6 @@
-﻿using TecAlliance.Carpool.Business.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
+using TecAlliance.Carpool.Business.Models;
 using TecAlliance.Carpool.Data.Models;
 using TecAlliance.Carpool.Data.Services;
 
@@ -13,6 +15,7 @@ namespace TecAlliance.Carpool.Business.Services
         //Add a new DriverSS
         public void AddDriver(DriverDto driverDto)
         {
+            Directory.CreateDirectory(@"C:\\Users\\usr\\CarpoolApp\\Bin");
             var driver = ConvertDriverDtoToDriver(driverDto);
             var AddSomeNewDriver = new DriverdataService();
             AddSomeNewDriver.AddNewDriver(driver);
@@ -168,6 +171,13 @@ namespace TecAlliance.Carpool.Business.Services
 
         }
 
-
+        public string DriverPath()
+        {
+            var originalpath = Assembly.GetExecutingAssembly().Location;
+            string path = Path.GetDirectoryName(originalpath);
+            string NewPath = Path.Combine(path, @"..\..\..\..\..\..\");
+            var finalPath = File.Create($"{NewPath}\\Driver.csv");
+            return finalPath.ToString();
+        }
     }
 }
