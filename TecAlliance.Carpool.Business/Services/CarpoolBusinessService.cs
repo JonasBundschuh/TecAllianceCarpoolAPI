@@ -77,7 +77,7 @@ namespace TecAlliance.Carpool.Business.Services
         public CarpoolDto? DeleteCarpoolbyID(int CarpoolId)
         {
             //Go thru all strings in Carpool File
-            var ReadAll = File.ReadAllLines($"{CarpoolPath()}\\Carpool.csv");
+            var ReadAll = File.ReadAllLines($"{CarpoolPath()}");
             //Create List for later, Has the same content from Carpool file but without the deleted one
             List<string> UpdatedList = new List<string>();
             //Create a new CarpoolDto
@@ -121,7 +121,7 @@ namespace TecAlliance.Carpool.Business.Services
         {
             CarpoolDto ChosenCarpool = new CarpoolDto();
             CheckForCarpoolFile();
-            var AllCarpools = File.ReadAllLines($"{CarpoolPath()}\\Carpool.csv");
+            var AllCarpools = File.ReadAllLines($"{CarpoolPath()}");
             foreach (string carpool in AllCarpools)
             {
                 var splittedCarpool = carpool.Split(';');
@@ -149,7 +149,7 @@ namespace TecAlliance.Carpool.Business.Services
         {;
             CarpoolDto chosenCarpool = new CarpoolDto();
             CheckForCarpoolFile();
-            var ReadAll = File.ReadAllLines($"{CarpoolPath()}\\Carpool.csv");
+            var ReadAll = File.ReadAllLines(CarpoolPath());
             var test = Assembly.GetExecutingAssembly().Location;
             List<string> UpdatedList = new List<string>();
             foreach (string carpool in ReadAll)
@@ -179,7 +179,7 @@ namespace TecAlliance.Carpool.Business.Services
             {
                 return null;
             }
-            File.WriteAllLines($"{CarpoolPath()}\\Carpool.csv", UpdatedList);
+            File.WriteAllLines($"{CarpoolPath()}", UpdatedList);
             return chosenCarpool;
         }
 
@@ -188,7 +188,7 @@ namespace TecAlliance.Carpool.Business.Services
         {
             var originalpath = Assembly.GetExecutingAssembly().Location;
             string path = Path.GetDirectoryName(originalpath);
-            string FinalPath = Path.Combine(path, @"..\..\..\..\..\", "TecAlliance.Carpool.Api\\TecAlliance.Carpool.Data\\CSV-Files");
+            string FinalPath = Path.Combine(path, @"..\..\..\..\..\", "TecAlliance.Carpool.Api\\TecAlliance.Carpool.Data\\CSV-Files\\Carpool.csv");
             return FinalPath.ToString();
         }
     }

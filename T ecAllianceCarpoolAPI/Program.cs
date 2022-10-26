@@ -1,3 +1,8 @@
+using Swashbuckle.AspNetCore.Filters;
+using TecAlliance.Carpool.Business.SampleData;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,8 +10,38 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "CarPoolAPI",
+        Description = "An ASP.NET Core Web API for managing Carpools",
+        TermsOfService = new Uri("https://google.com"),
+        Contact = new OpenApiContact
+        {
+            Name = "Contact",
+            Url = new Uri("https://google.com")
+        },
+        License = new OpenApiLicense
+        {
+            Name = "License",
+            Url = new Uri("https://google.com")
+        }
+    });
 
+    var xmlFileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFileName));
+});
+builder.Services.AddSwaggerGen(options =>
+{
+    options.ExampleFilters();
+});
+
+builder.Services.AddSingleton<DriverDtoSampleData>();
+builder.Services.AddSingleton<CarpoolDtoSampleProvider>();
+builder.Services.AddSwaggerExamplesFromAssemblyOf<DriverDtoSampleData>();
+builder.Services.AddSwaggerExamplesFromAssemblyOf<CarpoolDtoSampleProvider>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

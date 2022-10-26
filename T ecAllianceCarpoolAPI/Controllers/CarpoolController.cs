@@ -17,28 +17,53 @@ namespace T_ecAllianceCarpoolAPI.Controllers
             _logger = logger;
         }
 
-        //Post Carpool
+        /// <summary>
+        /// Function to add a Caprool
+        /// </summary>
+        /// <param name="carpool"></param>
+        /// <returns></returns>
+        /// <response code="201">Returns the newly created item</response>
+        /// <response code="400">If the item is null</response>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("/postCarpool")]
         public async Task<ActionResult<CarpoolS>> Post(CarpoolDto carpool)
         {
-            carpoolBusinessService.AddCarpool(carpool);
-            return StatusCode(200, "successfully added new Carpool");
+           return  carpoolBusinessService.AddCarpool(carpool);
+           //return StatusCode(200, "successfully added new Carpool");
         }
 
-        //Get all Carpools
+        /// <summary>
+        /// Function to get/display all added Carpools
+        /// </summary>
+        /// <returns></returns>
+        /// <response code="200">Gets all items/carpools</response>
+        /// <response code="400">If the item is null</response>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("/getAllCarpools")]
         public async Task<ActionResult<List<CarpoolDto>>> Get()
         {
             return carpoolBusinessService.GetAllCarpools();
         }
 
+        /// <summary>
+        /// Function to get/display the carpool matching the ID chosen by the user
+        /// </summary>
+        /// <param name="CarpoolId"></param>
+        /// <returns></returns>
+        /// <response code="200">Returns Carpool Item matching ID chosen by user>
+        /// <response code="400">If the item is null</response>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("/getCarpoolById")]
         public async Task<ActionResult<CarpoolDto>> GetCarpoolByID(int CarpoolId)
         {
             var result = carpoolBusinessService.GetCarpoolByID(CarpoolId);
+
             if (result == null)
             {
                 return StatusCode(404, "CarpoolID not found.");                
@@ -46,8 +71,15 @@ namespace T_ecAllianceCarpoolAPI.Controllers
             return result;
         }
 
-        //Delete all Carpools
+        /// <summary>
+        /// Function to delete all carpools
+        /// </summary>
+        /// <returns></returns>
+        /// <response code="204">Successfully Deleted all Carpools>
+        /// <response code="400">If the item is null</response>
         [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [Route("/deleteAllCarpools")]
         public async Task<ActionResult<CarpoolS>> Delete()
         {
@@ -55,8 +87,16 @@ namespace T_ecAllianceCarpoolAPI.Controllers
             return StatusCode(200, "successfully deleted all Carpools");
         }
 
-        //Delete a Carpool by ID given by the User
+        /// <summary>
+        /// Delete a Carpool by ID given by the User
+        /// </summary>
+        /// <param name="CarpoolID"></param>
+        /// <returns></returns>
+        /// <response code="200">Successfully Deleted chosen carpool with ID chosen by user>
+        /// <response code="204">If the item is null</response>
         [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [Route("/deleteCarpoolByID")]
         public async Task<ActionResult<CarpoolDto>> DeleteByID(int CarpoolID)
         {
@@ -67,9 +107,19 @@ namespace T_ecAllianceCarpoolAPI.Controllers
             }
             return result;
         }
-        
-        //Edit the carpool by ID given by the User
+
+        /// <summary>
+        /// Edit the carpool by ID given by the User
+        /// </summary>
+        /// <param name="CarpoolID"></param>
+        /// <param name="FreeSeats"></param>
+        /// <param name="NewDriver"></param>
+        /// <returns></returns>
+        /// <response code="200">Successfully edited the carpool matching the ID chosen by the User>
+        /// <response code="400">If the item is null</response>
         [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("/EditCarpoolByID")]
         public async Task<ActionResult<CarpoolDto>> EditCarpoolByID(int CarpoolID, int FreeSeats, string NewDriver)
         {
