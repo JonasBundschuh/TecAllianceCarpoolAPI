@@ -3,7 +3,7 @@
     public class DriverDto
     {
         //Create DriverDto Properties
-        public string FreeSeats { get; set; }
+        public int FreeSeats { get; set; }
         public string Smoke { get; set; }
         public string FullName { get; set; }
         public string StartLoc { get; set; }
@@ -12,7 +12,7 @@
         public string TimeEnd { get; set; }
 
         //Constructor for DriverDto Properties
-        public DriverDto(string freeSeats, string smoke, string fullName, string startLoc, string endLoc, string timeStart, string timeEnd)
+        public DriverDto(int freeSeats, string smoke, string fullName, string startLoc, string endLoc, string timeStart, string timeEnd)
         {
             FreeSeats = freeSeats;
             Smoke = smoke;

@@ -15,7 +15,7 @@ namespace TecAlliance.Carpool.Business.SampleData
 
             return new DriverDto
             {
-                FreeSeats = "4",
+                FreeSeats = 4,
                 Smoke = "No",
                 FullName = "Max Mustermann",
                 StartLoc = "Lauda-Königshofen",

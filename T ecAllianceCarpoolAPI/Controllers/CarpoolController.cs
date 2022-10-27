@@ -98,14 +98,10 @@ namespace T_ecAllianceCarpoolAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [Route("/deleteCarpoolByID")]
-        public async Task<ActionResult<CarpoolDto>> DeleteByID(int CarpoolID)
+        public async Task<ActionResult<CarpoolDto>> DeleteByID(int Id)
         {
-            var result = carpoolBusinessService.DeleteCarpoolbyID(CarpoolID);
-            if (result == null)
-            {
-                return StatusCode(404, "CarpoolID not found");
-            }
-            return result;
+            carpoolBusinessService.DeleteCarpoolbyId(Id);
+            return StatusCode(200, $"Successfully deleted carpool {Id}");
         }
 
         /// <summary>
@@ -130,7 +126,5 @@ namespace T_ecAllianceCarpoolAPI.Controllers
             }
             return result;
         }
-
-
     }
 }

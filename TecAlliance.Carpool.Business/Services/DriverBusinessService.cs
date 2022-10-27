@@ -23,6 +23,7 @@ namespace TecAlliance.Carpool.Business.Services
 
         }
 
+
         //[x]
         //GET ALL
         //Methods that gets ALL DRIVERS and RETURNS them in a LIST
@@ -65,7 +66,7 @@ namespace TecAlliance.Carpool.Business.Services
             {
                 //if the Driver ID the user entered doesn'tmatches a ID in Driver file do:
                 //string[] AllDrivers = Convert.ToString(driverDataSet).Split(';');
-                if (!(DriverId == Convert.ToInt32(driverDataSet.Id)))
+                if (!(DriverId == driverDataSet.Id))
                 {
                     //Add updated content to Updated List
                     UpdatedList.Add(driverDataSet);
@@ -73,7 +74,7 @@ namespace TecAlliance.Carpool.Business.Services
                 else
                 {
                     //Give each prop their place
-                    DeletedDriver.FreeSeats = driverDataSet.FreeSeats;
+                    DeletedDriver.FreeSeats = Convert.ToInt32(driverDataSet.FreeSeats);
                     DeletedDriver.Smoke = driverDataSet.Smoke;
                     DeletedDriver.FullName = driverDataSet.FullName;
                     DeletedDriver.StartLoc = driverDataSet.StartLoc;
@@ -112,7 +113,7 @@ namespace TecAlliance.Carpool.Business.Services
             {
                 if (DriverId == driver.Id)
                 {
-                    ChosenDriver.FreeSeats = driver.FreeSeats;
+                    ChosenDriver.FreeSeats = Convert.ToInt32(driver.FreeSeats);
                     ChosenDriver.Smoke = driver.Smoke;
                     ChosenDriver.FullName = driver.FullName;
                     ChosenDriver.StartLoc = driver.StartLoc;

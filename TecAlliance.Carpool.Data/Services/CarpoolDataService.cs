@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Text;
 using TecAlliance.Carpool.Data.Models;
 
 namespace TecAlliance.Carpool.Data.Services
@@ -24,6 +25,34 @@ namespace TecAlliance.Carpool.Data.Services
             //write dataset in Carpools file
             File.AppendAllText(CarpoolPath(), newCarPoolDataSet);
         }
+
+
+
+        public void DeleteSpecificCarpool(int Id)
+        {
+
+            CheckForOrCreateCarpoolFile();
+            int IdOfCarpool = Id;
+            var readText = File.ReadAllLines(CarpoolPath(), Encoding.UTF8);
+            List<string> readList = ReadCarPoolList(CarpoolPath());
+            var MatchingCarPool = readList.FirstOrDefault(x => x.Split(';')[0] == IdOfCarpool.ToString());
+            List<string> carPool = readList.Where(x => x.Split(';')[0] != IdOfCarpool.ToString()).ToList();
+            carPool.Add(MatchingCarPool);
+            carPool.Remove(MatchingCarPool);
+            var orderdCarpool = carPool.OrderBy(x => x.Split(';')[0]);
+            File.Delete(CarpoolPath());
+            File.AppendAllLines(CarpoolPath(), orderdCarpool);
+        }
+
+
+
+        public List<string> ReadCarPoolList(string path)
+        {
+            var CarPoolList = File.ReadAllLines(path, Encoding.UTF8);
+            List<string> readList = CarPoolList.ToList();
+            return readList;
+        }
+
 
         //GET All
         //List of all Carpools

@@ -4,7 +4,7 @@
     {
         //Properties for Driver
         public int Id { get; set; }
-        public string FreeSeats { get; set; }
+        public int FreeSeats { get; set; }
         public string Smoke { get; set; }
         public string FullName { get; set; }
         public string StartLoc { get; set; }
@@ -13,7 +13,7 @@
         public string TimeEnd { get; set; }
 
         //Constructor for Driver Properties
-        public Driver(string freeSeats, string smoke, string fullName, string startLoc, string endLoc, string timeStart, string timeEnd)
+        public Driver(int freeSeats, string smoke, string fullName, string startLoc, string endLoc, string timeStart, string timeEnd)
         {
             FreeSeats = freeSeats;
             Smoke = smoke;
@@ -23,7 +23,7 @@
             TimeStart = timeStart;
             TimeEnd = timeEnd;
         }
-        public Driver(int id, string freeSeats, string smoke, string fullName, string startLoc, string endLoc, string timeStart, string timeEnd)
+        public Driver(int id, int freeSeats, string smoke, string fullName, string startLoc, string endLoc, string timeStart, string timeEnd)
         {
             Id = id;
             FreeSeats = freeSeats;

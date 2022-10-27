@@ -44,7 +44,7 @@ namespace TecAlliance.Carpool.Data.Services
                 string[] splittedDrivers = line.Split(';');
                 var foo = new Driver
                     (
-                        splittedDrivers[0],
+                        Convert.ToInt32(splittedDrivers[0]),
                         splittedDrivers[1],
                         splittedDrivers[2],
                         splittedDrivers[3],

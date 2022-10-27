@@ -45,49 +45,58 @@ namespace TecAlliance.Carpool.Business.Services
             carpoolDataService.DeleteAllCarpools();
         }
 
-        //DELETE By Id
-        //Method to delete Carpool by its ID
-        public CarpoolDto? DeleteCarpoolbyID(int CarpoolId)
+        ////DELETE By Id
+        ////Method to delete Carpool by its ID
+        //public CarpoolDto? DeleteCarpoolbyID(int CarpoolId)
+        //{
+        //    //Go thru all strings in Carpool File
+        //    var currentList = carpoolDataService.AllCarpools();
+        //    //Create List for later, Has the same content from Carpool file but without the deleted one
+        //    List<CarpoolS> UpdatedList = new List<CarpoolS>();
+        //    //Create a new (empty) CarpoolDto
+        //    var DeletedCarpool = new CarpoolDto() { };
+        //
+        //    //for each carPoolDataSet (carPoolS) in currentList (Carpool file) do:
+        //    foreach (CarpoolS carPoolDataSet in currentList)
+        //    {
+        //        //if the Carpool ID the user entered doesn'tmatches a ID in Carpool file do:
+        //        if (!(CarpoolId == carPoolDataSet.Id))
+        //        {
+        //            //Add updated content to Updated List
+        //            UpdatedList.Add(carPoolDataSet);
+        //        }
+        //        else
+        //        {
+        //            //Give each prop their place
+        //            DeletedCarpool.FreeSeats = Convert.ToInt32(carPoolDataSet.FreeSeats);
+        //            DeletedCarpool.DriverName = carPoolDataSet.DriverName;
+        //            DeletedCarpool.StartLoc = carPoolDataSet.StartLoc;
+        //            DeletedCarpool.EndLoc = carPoolDataSet.EndLoc;
+        //            DeletedCarpool.TimeStart = carPoolDataSet.TimeDepart;
+        //            DeletedCarpool.TimeEnd = carPoolDataSet.TimeArrive;
+        //        }
+        //    }
+        //    if (UpdatedList.Count() == currentList.Count())
+        //    {
+        //        return null;
+        //    }
+        //
+        //    //Rewrite the Carpool Csv
+        //    foreach (var newCarPoolItem in UpdatedList)
+        //    {
+        //        carpoolDataService.AddNewCarpool(newCarPoolItem);   
+        //    }
+        //    return DeletedCarpool;
+        //}
+
+        public void DeleteCarpoolbyId(int Id)
         {
-            //Go thru all strings in Carpool File
-            var currentList = carpoolDataService.AllCarpools();
-            //Create List for later, Has the same content from Carpool file but without the deleted one
-            List<CarpoolS> UpdatedList = new List<CarpoolS>();
-            //Create a new (empty) CarpoolDto
-            var DeletedCarpool = new CarpoolDto() { };
-
-            //for each carPoolDataSet (carPoolS) in currentList (Carpool file) do:
-            foreach (CarpoolS carPoolDataSet in currentList)
-            {
-                //if the Carpool ID the user entered doesn'tmatches a ID in Carpool file do:
-                if (!(CarpoolId == Convert.ToInt32(carPoolDataSet.Id)))
-                {
-                    //Add updated content to Updated List
-                    UpdatedList.Add(carPoolDataSet);
-                }
-                else
-                {
-                    //Give each prop their place
-                    DeletedCarpool.FreeSeats = Convert.ToInt32(carPoolDataSet.FreeSeats);
-                    DeletedCarpool.DriverName = carPoolDataSet.DriverName;
-                    DeletedCarpool.StartLoc = carPoolDataSet.StartLoc;
-                    DeletedCarpool.EndLoc = carPoolDataSet.EndLoc;
-                    DeletedCarpool.TimeStart = carPoolDataSet.TimeDepart;
-                    DeletedCarpool.TimeEnd = carPoolDataSet.TimeArrive;
-                }
-            }
-            if (UpdatedList.Count() == currentList.Count())
-            {
-                return null;
-            }
-
-            //Rewrite the Carpool Csv
-            foreach (var newCarPoolItem in UpdatedList)
-            {
-                carpoolDataService.AddNewCarpool(newCarPoolItem);
-            }
-            return DeletedCarpool;
+            carpoolDataService.DeleteSpecificCarpool(Id);
         }
+
+
+
+
 
         //GET By Id
         //Method to get any carpool by a ID entered by the user
