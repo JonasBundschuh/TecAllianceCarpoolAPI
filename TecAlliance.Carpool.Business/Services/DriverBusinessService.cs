@@ -52,47 +52,9 @@ namespace TecAlliance.Carpool.Business.Services
         //[x]
         //DELETE BY ID
         //Method to delete a driver by the ID chosen by the User
-        public DriverDto? DeleteDriverbyID(int DriverId)
+        public void DeleteDriverbyID(int Id)
         {
-            //Go thru all strings in Deriver file
-            var currentList = driverDataSercice.AllDrivers();
-            //Create List for later, Has the same content from Driver file but without the deleted one
-            List<Driver> UpdatedList = new List<Driver>();
-            //Create a new (empty) DriverDto
-            var DeletedDriver = new DriverDto() { };
-
-            //for each driverDataSet (Driver) in currentList (Driver file) do:
-            foreach (Driver driverDataSet in currentList)
-            {
-                //if the Driver ID the user entered doesn'tmatches a ID in Driver file do:
-                //string[] AllDrivers = Convert.ToString(driverDataSet).Split(';');
-                if (!(DriverId == driverDataSet.Id))
-                {
-                    //Add updated content to Updated List
-                    UpdatedList.Add(driverDataSet);
-                }
-                else
-                {
-                    //Give each prop their place
-                    DeletedDriver.FreeSeats = Convert.ToInt32(driverDataSet.FreeSeats);
-                    DeletedDriver.Smoke = driverDataSet.Smoke;
-                    DeletedDriver.FullName = driverDataSet.FullName;
-                    DeletedDriver.StartLoc = driverDataSet.StartLoc;
-                    DeletedDriver.EndLoc = driverDataSet.EndLoc;
-                    DeletedDriver.TimeStart = driverDataSet.TimeStart;
-                    DeletedDriver.TimeEnd = driverDataSet.TimeEnd;
-                }
-            }
-            if (UpdatedList.Count() == currentList.Count())
-            {
-                return null;
-            }
-            //Rewrite the Driver csv
-            foreach (var newDriverItem in UpdatedList)
-            {
-                driverDataSercice.AddNewDriver(newDriverItem);
-            }
-            return DeletedDriver;
+            driverDataSercice.DeleteDriverById(Id);
         }
 
 

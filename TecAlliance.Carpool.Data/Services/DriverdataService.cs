@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Text;
 using TecAlliance.Carpool.Data.Models;
 
 
@@ -57,10 +58,33 @@ namespace TecAlliance.Carpool.Data.Services
             return drivers;
         }
 
+        public void DeleteDriverById(int Id)
+        {
+
+            CheckForDriverOrCreateFile();
+            int IdOfCarpool = Id;
+            var readText = File.ReadAllLines(DriverPath(), Encoding.UTF8);
+            List<string> readList = ReadDriverList(DriverPath());
+            var MatchingCarPool = readList.FirstOrDefault(x => x.Split(';')[0] == IdOfCarpool.ToString());
+            List<string> carPool = readList.Where(x => x.Split(';')[0] != IdOfCarpool.ToString()).ToList();
+            carPool.Add(MatchingCarPool);
+            carPool.Remove(MatchingCarPool);
+            var orderdCarpool = carPool.OrderBy(x => x.Split(';')[0]);
+            File.Delete(DriverPath());
+            File.AppendAllLines(DriverPath(), orderdCarpool);
+        }
+
+
         #endregion Main Methods
 
         #region HelperMethods
 
+        public List<string> ReadDriverList(string path)
+        {
+            var CarPoolList = File.ReadAllLines(path, Encoding.UTF8);
+            List<string> readList = CarPoolList.ToList();
+            return readList;
+        }
         //Check if Driver file exists, if not create one
         public void CheckForDriverOrCreateFile()
         {

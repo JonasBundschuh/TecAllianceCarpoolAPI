@@ -30,7 +30,6 @@ namespace TecAlliance.Carpool.Data.Services
 
         public void DeleteSpecificCarpool(int Id)
         {
-
             CheckForOrCreateCarpoolFile();
             int IdOfCarpool = Id;
             var readText = File.ReadAllLines(CarpoolPath(), Encoding.UTF8);

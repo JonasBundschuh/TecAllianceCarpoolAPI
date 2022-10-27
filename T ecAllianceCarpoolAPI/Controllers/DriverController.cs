@@ -82,14 +82,10 @@ namespace T_ecAllianceCarpoolAPI.Controllers
         /// <returns></returns>
         [HttpDelete]
         [Route("/deleteDriverByID/{DriverId}")]
-        public async Task<ActionResult<DriverDto>> DeleteByID(int DriverId)
+        public async Task<ActionResult<DriverDto>> DeleteByID(int Id)
         {
-            var result = driverBusinessService.DeleteDriverbyID(DriverId);
-            if (result == null)
-            {
-                return StatusCode(404, "UserID not found");
-            }
-            return result;
+            driverBusinessService.DeleteDriverbyID(Id);
+            return StatusCode(200, "Successfully deleted the driver with the ID {Id");
         }
 
         /// <summary>
