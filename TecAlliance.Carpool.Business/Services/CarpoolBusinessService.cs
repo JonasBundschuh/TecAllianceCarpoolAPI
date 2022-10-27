@@ -119,7 +119,7 @@ namespace TecAlliance.Carpool.Business.Services
         //Method to edit a existing carpool by the ID entered by the User
         public CarpoolDto? EditCarpoolByID(int CarpoolID, int FreeSeats, string NewDriver)
         {
-            
+
             CarpoolDto chosenCarpool = new CarpoolDto();
             var allCarPools = carpoolDataService.AllCarpools();
 

@@ -5,7 +5,7 @@ namespace TecAlliance.Carpool.Data.Services
 {
     public class CarpoolDataService
     {
-        //- - - - - - MAIN METHODS - - - - - - 
+        #region Main Methods
 
 
         // CREATE
@@ -16,10 +16,10 @@ namespace TecAlliance.Carpool.Data.Services
             CheckForOrCreateCarpoolFile();
 
             //check how many lines are there and then set the ID
-            var FileCount = File.ReadLines(CarpoolPath()).Count() + 1;
+            int Id = File.ReadLines(CarpoolPath()).Count() + 1;
 
             //Create  variable for Carpool Driver data set
-            string newCarPoolDataSet = $"{FileCount};{carpool.FreeSeats};{carpool.DriverName};{carpool.StartLoc};{carpool.EndLoc};{carpool.TimeDepart};{carpool.TimeArrive}\n";
+            string newCarPoolDataSet = $"{Id};{carpool.FreeSeats};{carpool.DriverName};{carpool.StartLoc};{carpool.EndLoc};{carpool.TimeDepart};{carpool.TimeArrive}\n";
 
             //write dataset in Carpools file
             File.AppendAllText(CarpoolPath(), newCarPoolDataSet);
@@ -40,14 +40,15 @@ namespace TecAlliance.Carpool.Data.Services
             {
 
                 string[] splittedCarpools = carpool.Split(';');
-                var foo = new CarpoolS
-                    (
-                        splittedCarpools[0],
+                var foo = new CarpoolS(
+
+                        Convert.ToInt32(splittedCarpools[0]),
                         splittedCarpools[1],
                         splittedCarpools[2],
                         splittedCarpools[3],
                         splittedCarpools[4],
-                        splittedCarpools[5]
+                        splittedCarpools[5],
+                        splittedCarpools[6]
                     );
                 carpools.Add(foo);
             }
@@ -58,11 +59,12 @@ namespace TecAlliance.Carpool.Data.Services
         //delete Carpool file
         public void DeleteAllCarpools()
         {
+            //Delete the Carpool.csv file
             File.Delete(CarpoolPath());
         }
 
+        #endregion Main Methods 
 
-        //- - - - - - HELPER METHODS - - - - - - 
         #region Helper Methods
 
         //Checks if Carpoolfile exists, if not create one

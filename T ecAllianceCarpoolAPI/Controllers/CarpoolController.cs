@@ -30,8 +30,8 @@ namespace T_ecAllianceCarpoolAPI.Controllers
         [Route("/postCarpool")]
         public async Task<ActionResult<CarpoolS>> Post(CarpoolDto carpool)
         {
-           return  carpoolBusinessService.AddCarpool(carpool);
-           //return StatusCode(200, "successfully added new Carpool");
+            return carpoolBusinessService.AddCarpool(carpool);
+            //return StatusCode(200, "successfully added new Carpool");
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace T_ecAllianceCarpoolAPI.Controllers
 
             if (result == null)
             {
-                return StatusCode(404, "CarpoolID not found.");                
+                return StatusCode(404, "CarpoolID not found.");
             }
             return result;
         }
@@ -101,7 +101,7 @@ namespace T_ecAllianceCarpoolAPI.Controllers
         public async Task<ActionResult<CarpoolDto>> DeleteByID(int CarpoolID)
         {
             var result = carpoolBusinessService.DeleteCarpoolbyID(CarpoolID);
-            if ( result == null)
+            if (result == null)
             {
                 return StatusCode(404, "CarpoolID not found");
             }
@@ -124,13 +124,13 @@ namespace T_ecAllianceCarpoolAPI.Controllers
         public async Task<ActionResult<CarpoolDto>> EditCarpoolByID(int CarpoolID, int FreeSeats, string NewDriver)
         {
             var result = carpoolBusinessService.EditCarpoolByID(CarpoolID, FreeSeats, NewDriver);
-            if(result == null)
+            if (result == null)
             {
                 return StatusCode(404, "CarpoolID not found.");
             }
             return result;
-        } 
+        }
 
-        
+
     }
 }

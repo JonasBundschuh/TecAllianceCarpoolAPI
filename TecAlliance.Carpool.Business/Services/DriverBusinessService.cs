@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Reflection;
+﻿using System.Reflection;
 using TecAlliance.Carpool.Business.Models;
 using TecAlliance.Carpool.Data.Models;
 using TecAlliance.Carpool.Data.Services;
@@ -17,7 +16,7 @@ namespace TecAlliance.Carpool.Business.Services
         //POST
         //Add a new driver
         public Driver AddDriver(DriverDto driverDto)
-        {            
+        {
             var driver = ConvertDriverDtoToDriver(driverDto);
             driverDataSercice.AddNewDriver(driver);
             return driver;
@@ -88,9 +87,9 @@ namespace TecAlliance.Carpool.Business.Services
                 return null;
             }
             //Rewrite the Driver csv
-            foreach(var newDriverItem in UpdatedList)
+            foreach (var newDriverItem in UpdatedList)
             {
-               driverDataSercice.AddNewDriver(newDriverItem);
+                driverDataSercice.AddNewDriver(newDriverItem);
             }
             return DeletedDriver;
         }
@@ -102,12 +101,12 @@ namespace TecAlliance.Carpool.Business.Services
         public DriverDto? GetDriverByID(int DriverId)
         {
             //check if the Driver file exists
-           
+
             //read all strings (driver) in Driver file
             var AllDrivers = driverDataSercice.AllDrivers();
             //Create a new DriverDto
             DriverDto ChosenDriver = new DriverDto();
-            
+
             //for each string (driver) in Driver file (AllDrivers) do:
             foreach (Driver driver in AllDrivers)
             {
@@ -116,9 +115,9 @@ namespace TecAlliance.Carpool.Business.Services
                     ChosenDriver.FreeSeats = driver.FreeSeats;
                     ChosenDriver.Smoke = driver.Smoke;
                     ChosenDriver.FullName = driver.FullName;
-                    ChosenDriver.StartLoc = driver.StartLoc;    
+                    ChosenDriver.StartLoc = driver.StartLoc;
                     ChosenDriver.EndLoc = driver.EndLoc;
-                    ChosenDriver.TimeStart = driver.TimeStart;  
+                    ChosenDriver.TimeStart = driver.TimeStart;
                     ChosenDriver.TimeEnd = driver.TimeEnd;
                 }
             }
@@ -143,7 +142,7 @@ namespace TecAlliance.Carpool.Business.Services
 
             List<Driver> UpdatedList = new List<Driver>();
 
-            foreach(Driver driver in Alldrivers)
+            foreach (Driver driver in Alldrivers)
             {
                 if (DriverID == driver.Id)
                 {
@@ -158,7 +157,7 @@ namespace TecAlliance.Carpool.Business.Services
                     driver.Smoke = NowSmoker;
                     driver.FullName = newDriverName;
 
-                   UpdatedList.Add(ConvertDriverDtoToDriver(chosenDriver));
+                    UpdatedList.Add(ConvertDriverDtoToDriver(chosenDriver));
                 }
                 else
                 {
@@ -168,17 +167,17 @@ namespace TecAlliance.Carpool.Business.Services
             foreach (var newEntry in UpdatedList)
             {
                 driverDataSercice.AddNewDriver(newEntry);
-            }  
+            }
             if (String.IsNullOrEmpty(chosenDriver.EndLoc))
             {
                 return null;
             }
-            
+
             return chosenDriver;
         }
 
 
-        
+
         #region HelperMethods
 
         //Checks if Driver.csv exists
@@ -187,7 +186,7 @@ namespace TecAlliance.Carpool.Business.Services
             FileStream fs = File.Create(DriverPath());
             if (File.Exists(DriverPath()))
             {
-                
+
             }
             else
             {

@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using TecAlliance.Carpool.Business.Models;
 using TecAlliance.Carpool.Business.Services;
-using TecAlliance.Carpool.Data.Services;
 
 namespace T_ecAllianceCarpoolAPI.Controllers
 {
@@ -112,6 +111,6 @@ namespace T_ecAllianceCarpoolAPI.Controllers
             return result;
         }
 
-        
+
     }
 }
