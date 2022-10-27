@@ -63,14 +63,9 @@ namespace TecAlliance.Carpool.Business.Services
         //Method to get/display a single driver by its ID (chosen by the user)
         public DriverDto? GetDriverByID(int DriverId)
         {
-            //check if the Driver file exists
-
-            //read all strings (driver) in Driver file
-            var AllDrivers = driverDataSercice.AllDrivers();
-            //Create a new DriverDto
             DriverDto ChosenDriver = new DriverDto();
+            var AllDrivers = driverDataSercice.AllDrivers();
 
-            //for each string (driver) in Driver file (AllDrivers) do:
             foreach (Driver driver in AllDrivers)
             {
                 if (DriverId == driver.Id)
@@ -84,8 +79,6 @@ namespace TecAlliance.Carpool.Business.Services
                     ChosenDriver.TimeEnd = driver.TimeEnd;
                 }
             }
-
-            //Alternative to check if the driver with the ID entered by the user even exists
             if (String.IsNullOrEmpty(ChosenDriver.FullName))
             {
                 return null;

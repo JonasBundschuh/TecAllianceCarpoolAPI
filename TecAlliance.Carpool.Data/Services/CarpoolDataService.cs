@@ -27,7 +27,8 @@ namespace TecAlliance.Carpool.Data.Services
         }
 
 
-
+        //DELETE BY ID
+        //Method to delete a single carpool with matching ID to the ID chosen by the User
         public void DeleteSpecificCarpool(int Id)
         {
             CheckForOrCreateCarpoolFile();
@@ -44,32 +45,18 @@ namespace TecAlliance.Carpool.Data.Services
         }
 
 
-
-        public List<string> ReadCarPoolList(string path)
-        {
-            var CarPoolList = File.ReadAllLines(path, Encoding.UTF8);
-            List<string> readList = CarPoolList.ToList();
-            return readList;
-        }
-
-
         //GET All
         //List of all Carpools
         public List<CarpoolS> AllCarpools()
         {
-            // Check for the CarPool file or create it if it doesnt exist yet
             CheckForOrCreateCarpoolFile();
-            //Read all lines in Carpool.csv
             var readText = File.ReadAllLines(CarpoolPath());
-            //Create a new CarpoolS Lost
             List<CarpoolS> carpools = new List<CarpoolS>();
-            //go thru every line and fill & Split properties in the created List
             foreach (var carpool in readText)
             {
-
                 string[] splittedCarpools = carpool.Split(';');
-                var foo = new CarpoolS(
-
+                var foo = new CarpoolS
+                    (
                         Convert.ToInt32(splittedCarpools[0]),
                         splittedCarpools[1],
                         splittedCarpools[2],
@@ -83,6 +70,7 @@ namespace TecAlliance.Carpool.Data.Services
             return carpools;
         }
 
+
         //DELETE All
         //delete Carpool file
         public void DeleteAllCarpools()
@@ -93,7 +81,21 @@ namespace TecAlliance.Carpool.Data.Services
 
         #endregion Main Methods 
 
+
+
+
+
+
         #region Helper Methods
+
+        //Reads all carpools and adds them to a list + RETURNS the LIST
+        public List<string> ReadCarPoolList(string path)
+        {
+            var CarPoolList = File.ReadAllLines(path, Encoding.UTF8);
+            List<string> readList = CarPoolList.ToList();
+            return readList;
+        }
+
 
         //Checks if Carpoolfile exists, if not create one
         public void CheckForOrCreateCarpoolFile()
@@ -107,6 +109,7 @@ namespace TecAlliance.Carpool.Data.Services
             }
         }
 
+
         //Get the Carpool file path dynamically
         public string CarpoolPath()
         {
@@ -115,6 +118,7 @@ namespace TecAlliance.Carpool.Data.Services
             string FinalPath = Path.Combine(path, @"..\..\..\..\", "TecAlliance.Carpool.Data\\CSV-Files\\Carpool.csv");
             return FinalPath.ToString();
         }
-        #endregion
+
+        #endregion Helper Methods
     }
 }

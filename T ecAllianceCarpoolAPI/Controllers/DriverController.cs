@@ -50,7 +50,7 @@ namespace T_ecAllianceCarpoolAPI.Controllers
         /// <param name="DriverId"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("/getDriverBy/{DriverId}")]
+        [Route("/getDriverById")]
         public async Task<ActionResult<DriverDto>> GetDriverByID(int DriverId)
         {
             var result = driverBusinessService.GetDriverByID(DriverId);
