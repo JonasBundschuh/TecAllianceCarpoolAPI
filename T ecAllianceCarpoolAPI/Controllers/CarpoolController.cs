@@ -70,7 +70,7 @@ namespace T_ecAllianceCarpoolAPI.Controllers
             }
             return result;
         }
-
+        ///
         /// <summary>
         /// Function to delete all carpools
         /// </summary>
