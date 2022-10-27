@@ -76,7 +76,7 @@ namespace TecAlliance.Carpool.Data.Services
         {
             var originalpath = Assembly.GetExecutingAssembly().Location;
             string path = Path.GetDirectoryName(originalpath);
-            string FinalPath = Path.Combine(path, @"..\..\..\..\..\", "TecAlliance.Carpool.Api\\TecAlliance.Carpool.Data\\CSV-Files\\Driver.csv");
+            string FinalPath = Path.Combine(path, @"..\..\..\..\", "TecAlliance.Carpool.Api\\TecAlliance.Carpool.Data\\CSV-Files\\Driver.csv");
             return FinalPath.ToString();
         }
 
