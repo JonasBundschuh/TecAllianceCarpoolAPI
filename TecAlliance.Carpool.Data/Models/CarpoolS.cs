@@ -28,5 +28,9 @@
             TimeDepart = timeDepart;
             TimeArrive = timeArrive;
         }
+        public string ToDataString()
+        {
+            return $"{Id};{FreeSeats};{DriverName};{StartLoc};{EndLoc};{TimeDepart};{TimeArrive}";
+        }
     }
 }

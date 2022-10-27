@@ -12,16 +12,21 @@ namespace TecAlliance.Carpool.Business.Services
         //Create new DriverdataService
         DriverdataService driverDataSercice = new DriverdataService();
 
-        //Add a new DriverSS
-        public void AddDriver(DriverDto driverDto)
-        {
-            Directory.CreateDirectory(@"C:\\Users\\usr\\CarpoolApp\\Bin");
+
+        //[x]
+        //POST
+        //Add a new driver
+        public Driver AddDriver(DriverDto driverDto)
+        {            
             var driver = ConvertDriverDtoToDriver(driverDto);
-            var AddSomeNewDriver = new DriverdataService();
-            AddSomeNewDriver.AddNewDriver(driver);
+            driverDataSercice.AddNewDriver(driver);
+            return driver;
 
         }
 
+        //[x]
+        //GET ALL
+        //Methods that gets ALL DRIVERS and RETURNS them in a LIST
         public List<DriverDto> GetAllDrivers()
         {
             CheckIfDriverFileExist();
@@ -35,90 +40,86 @@ namespace TecAlliance.Carpool.Business.Services
             return AllDrivers;
         }
 
-        public DriverDto ConvertDriverList(Driver driver)
-        {
-            var convertedDriverList = new DriverDto(driver.FreeSeats, driver.Smoke, driver.FullName, driver.StartLoc, driver.EndLoc, driver.TimeStart, driver.TimeEnd);
-            return convertedDriverList;
-        }
-        //Method to convert DriverDto to "convertedDriver" to use for "driver"
-        public Driver ConvertDriverDtoToDriver(DriverDto driverDto)
-        {
-            var convertedDriver = new Driver(driverDto.FreeSeats, driverDto.Smoke, driverDto.FullName, driverDto.StartLoc, driverDto.EndLoc, driverDto.TimeStart, driverDto.TimeEnd);
-            return convertedDriver;
-        }
-
+        //[x]
+        //DLELETE ALL DRIVERS
+        //Deletes all drivers by deleting the whole Driver.csv file
         public void DeleteAllDrivers()
         {
-            File.Delete($"{DriverPath}\\Driver.csv");
+            driverDataSercice.DeleteALlDrivers();
         }
 
-        public void CheckIfDriverFileExist()
-        {
-            if (File.Exists($"{DriverPath}\\Driver.csv"))
-            {
 
-            }
-            else
-            {
-                File.Create($"{DriverPath}\\Driver.csv");
-            }
-        }
-
+        //[x]
+        //DELETE BY ID
+        //Method to delete a driver by the ID chosen by the User
         public DriverDto? DeleteDriverbyID(int DriverId)
         {
-            var ReadAll = File.ReadAllLines($"{DriverPath}\\Driver.csv");
-            List<string> UpdatedList = new List<string>();
+            //Go thru all strings in Deriver file
+            var currentList = driverDataSercice.AllDrivers();
+            //Create List for later, Has the same content from Driver file but without the deleted one
+            List<Driver> UpdatedList = new List<Driver>();
+            //Create a new (empty) DriverDto
             var DeletedDriver = new DriverDto() { };
-            
-            foreach (string line in ReadAll)
+
+            //for each driverDataSet (Driver) in currentList (Driver file) do:
+            foreach (Driver driverDataSet in currentList)
             {
-                string[] AllDrivers = line.Split(';');
-                if (!(DriverId == Convert.ToInt32(AllDrivers[0])))
+                //if the Driver ID the user entered doesn'tmatches a ID in Driver file do:
+                //string[] AllDrivers = Convert.ToString(driverDataSet).Split(';');
+                if (!(DriverId == Convert.ToInt32(driverDataSet.Id)))
                 {
-                    UpdatedList.Add(line);
+                    //Add updated content to Updated List
+                    UpdatedList.Add(driverDataSet);
                 }
                 else
                 {
-                    DeletedDriver.FreeSeats = AllDrivers[1];
-                    DeletedDriver.Smoke = AllDrivers[2];
-                    DeletedDriver.FullName = AllDrivers[3];
-                    DeletedDriver.StartLoc = AllDrivers[4];
-                    DeletedDriver.EndLoc = AllDrivers[5];
-                    DeletedDriver.TimeStart = AllDrivers[6];
-                    DeletedDriver.TimeEnd = AllDrivers[7];
+                    //Give each prop their place
+                    DeletedDriver.FreeSeats = driverDataSet.FreeSeats;
+                    DeletedDriver.Smoke = driverDataSet.Smoke;
+                    DeletedDriver.FullName = driverDataSet.FullName;
+                    DeletedDriver.StartLoc = driverDataSet.StartLoc;
+                    DeletedDriver.EndLoc = driverDataSet.EndLoc;
+                    DeletedDriver.TimeStart = driverDataSet.TimeStart;
+                    DeletedDriver.TimeEnd = driverDataSet.TimeEnd;
                 }
             }
-            if (UpdatedList.Count() == ReadAll.Count())
+            if (UpdatedList.Count() == currentList.Count())
             {
                 return null;
             }
-            File.WriteAllLines($"{DriverPath}\\Driver.csv", UpdatedList);
+            //Rewrite the Driver csv
+            foreach(var newDriverItem in UpdatedList)
+            {
+               driverDataSercice.AddNewDriver(newDriverItem);
+            }
             return DeletedDriver;
         }
 
+
+        //[x]
+        //GET BY ID
+        //Method to get/display a single driver by its ID (chosen by the user)
         public DriverDto? GetDriverByID(int DriverId)
         {
             //check if the Driver file exists
-            CheckIfDriverFileExist();
+           
             //read all strings (driver) in Driver file
-            var AllDrivers = File.ReadAllLines($"{DriverPath}\\Driver.csv");
+            var AllDrivers = driverDataSercice.AllDrivers();
             //Create a new DriverDto
             DriverDto ChosenDriver = new DriverDto();
             
             //for each string (driver) in Driver file (AllDrivers) do:
-            foreach (string driver in AllDrivers)
+            foreach (Driver driver in AllDrivers)
             {
-                //split the string at ';'
-                var splittedDriver = driver.Split(';'); 
-                if (DriverId == Convert.ToInt32(splittedDriver[0]))
+                if (DriverId == driver.Id)
                 {
-                    ChosenDriver.FreeSeats = splittedDriver[1];
-                    ChosenDriver.Smoke = splittedDriver[2];
-                    ChosenDriver.FullName = splittedDriver[3];
-                    ChosenDriver.StartLoc = splittedDriver[4];
-                    ChosenDriver.EndLoc = splittedDriver[5];
-                    ChosenDriver.TimeStart = splittedDriver[6];
-                    ChosenDriver.TimeEnd = splittedDriver[7];
+                    ChosenDriver.FreeSeats = driver.FreeSeats;
+                    ChosenDriver.Smoke = driver.Smoke;
+                    ChosenDriver.FullName = driver.FullName;
+                    ChosenDriver.StartLoc = driver.StartLoc;    
+                    ChosenDriver.EndLoc = driver.EndLoc;
+                    ChosenDriver.TimeStart = driver.TimeStart;  
+                    ChosenDriver.TimeEnd = driver.TimeEnd;
                 }
             }
 
@@ -130,54 +131,94 @@ namespace TecAlliance.Carpool.Business.Services
             return ChosenDriver;
         }
 
+
+
+        //[x]
+        //UPDATE
+        //Method to edit a existing Driver by the ID entered by the User
         public DriverDto? EditDriverByID(int DriverID, string newDriverName, string NowSmoker)
         {
             DriverDto chosenDriver = new DriverDto();
-            CheckIfDriverFileExist();
-            var ReadAll = File.ReadAllLines($"{DriverPath}\\Driver.csv");
-            List<string> UpdatedList = new List<string>();
-            foreach(string driver in ReadAll)
+            var Alldrivers = driverDataSercice.AllDrivers();
+
+            List<Driver> UpdatedList = new List<Driver>();
+
+            foreach(Driver driver in Alldrivers)
             {
-                var SplittedCarpool = driver.Split(';');
-                if (DriverID == Convert.ToInt32(SplittedCarpool[0]))
+                if (DriverID == driver.Id)
                 {
-                    chosenDriver.FreeSeats = SplittedCarpool[1];
-                    chosenDriver.Smoke = SplittedCarpool[2];
-                    chosenDriver.FullName = SplittedCarpool[3];
-                    chosenDriver.StartLoc = SplittedCarpool[4];
-                    chosenDriver.EndLoc = SplittedCarpool[5];
-                    chosenDriver.TimeStart = SplittedCarpool[6];
-                    chosenDriver.TimeEnd = SplittedCarpool[7];
+                    chosenDriver.FreeSeats = driver.FreeSeats;
+                    chosenDriver.Smoke = driver.Smoke;
+                    chosenDriver.FullName = driver.FullName;
+                    chosenDriver.StartLoc = driver.StartLoc;
+                    chosenDriver.EndLoc = driver.EndLoc;
+                    chosenDriver.TimeStart = driver.TimeStart;
+                    chosenDriver.TimeEnd = driver.TimeEnd;
 
-                    SplittedCarpool[2] = NowSmoker;
-                    SplittedCarpool[3] = newDriverName;
+                    driver.Smoke = NowSmoker;
+                    driver.FullName = newDriverName;
 
-                    UpdatedList.Add($"{SplittedCarpool[0]};{SplittedCarpool[1]};{SplittedCarpool[2]};{SplittedCarpool[3]};{SplittedCarpool[4]};{SplittedCarpool[5]};{SplittedCarpool[6]};{SplittedCarpool[7]};");
+                   UpdatedList.Add(ConvertDriverDtoToDriver(chosenDriver));
                 }
                 else
                 {
                     UpdatedList.Add(driver);
                 }
             }
+            foreach (var newEntry in UpdatedList)
+            {
+                driverDataSercice.AddNewDriver(newEntry);
+            }  
             if (String.IsNullOrEmpty(chosenDriver.EndLoc))
             {
                 return null;
             }
-            File.WriteAllLines($"{DriverPath}\\Driver.csv", UpdatedList);
+            
             return chosenDriver;
         }
 
-        public void CheckForRightID(string[] AllDrivers, string line)
-        {
 
+        
+        #region HelperMethods
+
+        //Checks if Driver.csv exists
+        public void CheckIfDriverFileExist()
+        {
+            FileStream fs = File.Create(DriverPath());
+            if (File.Exists(DriverPath()))
+            {
+                
+            }
+            else
+            {
+                File.Create(DriverPath());
+            }
         }
 
+
+        //Method for dynamic path of Driver File exists
         public string DriverPath()
         {
             var originalpath = Assembly.GetExecutingAssembly().Location;
             string path = Path.GetDirectoryName(originalpath);
-            string FinalPath = Path.Combine(path, @"..\..\..\..\..\", "TecAlliance.Carpool.Api\\TecAlliance.Carpool.Data\\CSV-Files");
+            string FinalPath = Path.Combine(path, @"..\..\..\..\..\", "TecAlliance.Carpool.Api\\TecAlliance.Carpool.Data\\CSV-Files\\Driver.csv");
             return FinalPath.ToString();
         }
+
+
+        //Method to Convert DriverDto to driver
+        public Driver ConvertDriverDtoToDriver(DriverDto driverDto)
+        {
+            var convertedDriver = new Driver(driverDto.FreeSeats, driverDto.Smoke, driverDto.FullName, driverDto.StartLoc, driverDto.EndLoc, driverDto.TimeStart, driverDto.TimeEnd);
+            return convertedDriver;
+        }
+
+        //Method to convert Driver List
+        public DriverDto ConvertDriverList(Driver driver)
+        {
+            var convertedDriverList = new DriverDto(driver.FreeSeats, driver.Smoke, driver.FullName, driver.StartLoc, driver.EndLoc, driver.TimeStart, driver.TimeEnd);
+            return convertedDriverList;
+        }
+        #endregion
     }
 }
