@@ -19,8 +19,12 @@ namespace TecAlliance.Carpool.Data.Services
             //Create Variable that contains all contents for the Driver Data
             string newDriverDataSet = $"{DriverCount};{driver.FreeSeats};{driver.Smoke};{driver.FullName};{driver.StartLoc};{driver.EndLoc};{driver.TimeStart};{driver.TimeEnd}\n";
 
-            //Write dataset in Driver csv file
-            File.AppendAllText(DriverPath(), newDriverDataSet);
+            using (FileStream fs = File.Create(DriverPath())) 
+            {
+                File.Create(DriverPath());
+                File.AppendAllText(DriverPath(), newDriverDataSet);
+            }
+
         }
 
 
@@ -76,7 +80,7 @@ namespace TecAlliance.Carpool.Data.Services
         {
             var originalpath = Assembly.GetExecutingAssembly().Location;
             string path = Path.GetDirectoryName(originalpath);
-            string FinalPath = Path.Combine(path, @"..\..\..\..\", "TecAlliance.Carpool.Api\\TecAlliance.Carpool.Data\\CSV-Files\\Driver.csv");
+            string FinalPath = Path.Combine(path, @"..\..\..\..\", "TecAlliance.Carpool.Data\\CSV-Files\\Driver.csv");
             return FinalPath.ToString();
         }
 
