@@ -14,24 +14,12 @@ namespace TecAlliance.Carpool.Data.Services
         //Method to add a new carpool 
         public void AddNewCarpool(CarpoolS carpool)
         {
-            //Check If carpools file exists, if not create it
+            int Id = 0;
+            ////Check If carpools file exists, if not create it
             CheckForOrCreateCarpoolFile();
-
-            //check how many lines are there and then set the ID
-            //int Id = File.ReadLines(CarpoolPath()).Count() + 1;
-
-            List<string[]> AllCarpools = new List<string[]>();
-
-            //for each line in the Carpool.csv file
-            foreach (string f in File.ReadAllLines(CarpoolPath()))
-            {
-                //Splitten
-                AllCarpools.Add(f.Split(';'));
-            }
-            //Convert Id to int and add +1 to the biggest number in [1] of carpool.csv
-            var Id = Convert.ToInt32(AllCarpools.Max(e => e[0])) + 1;
-            
-
+           
+            //Call GetId method to generate / get the ID to give to the new carpool
+            Id = GetId();
             //Create  variable for Carpool Driver data set
             string newCarPoolDataSet = $"{Id};{carpool.FreeSeats};{carpool.DriverName};{carpool.StartLoc};{carpool.EndLoc};{carpool.TimeDepart};{carpool.TimeArrive}\n";
 
@@ -102,6 +90,7 @@ namespace TecAlliance.Carpool.Data.Services
         #region Helper Methods
 
 
+        //Method to generate a new Id
         public int GetId()
         {
             List<string[]> AllCarpools = new List<string[]>();

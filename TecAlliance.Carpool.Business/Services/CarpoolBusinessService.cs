@@ -9,9 +9,7 @@ namespace TecAlliance.Carpool.Business.Services
         //Create a new CarpoolDataService
         CarpoolDataService carpoolDataService = new CarpoolDataService();
 
-
-        //- - - - - - Main METHODS - - - - - - 
-
+        #region Main Methods
 
 
         // CREATE
@@ -23,6 +21,7 @@ namespace TecAlliance.Carpool.Business.Services
             return carpool;
 
         }
+
 
         //GET All
         //returns all capools in a List
@@ -38,7 +37,8 @@ namespace TecAlliance.Carpool.Business.Services
             return AllCarpools;
         }
 
-        //DELETE all
+
+        //DELETE ALL
         //Delete the Carpool file
         public void DeleteAllCarpools()
         {
@@ -46,15 +46,13 @@ namespace TecAlliance.Carpool.Business.Services
         }
 
 
-
+        //DELETE BY ID
+        //Delete the Carpool matching the Id chosen by the user
         public void DeleteCarpoolbyId(int Id)
         {
             carpoolDataService.DeleteSpecificCarpool(Id);
         }
-
-
-
-
+         
 
         //GET By Id
         //Method to get any carpool by a ID entered by the user
@@ -81,6 +79,7 @@ namespace TecAlliance.Carpool.Business.Services
             }
             return ChosenCarpool;
         }
+
 
         //UPDATE
         //Method to edit a existing carpool by the ID entered by the User
@@ -121,14 +120,13 @@ namespace TecAlliance.Carpool.Business.Services
             return chosenCarpool;
         }
 
+        #endregion Main Methods
 
-
-
-
-        //- - - - - - HELPER METHODS - - - - - - 
 
 
         #region Helper Methods
+
+
         //Convert CarpoolS to CarpoolDto
         public CarpoolDto ConvertCarpoolsList(CarpoolS carpoolS)
         {
@@ -136,12 +134,14 @@ namespace TecAlliance.Carpool.Business.Services
             return convertedCarpoolsList;
         }
 
+
         //Convert CarpoolDto to "convertedCarpool" to use in "carpool"
         public CarpoolS ConvertCarpoolDtoToCarpools(CarpoolDto carpoolDto)
         {
             var convertedCarpool = new CarpoolS(Convert.ToString(carpoolDto.FreeSeats), carpoolDto.DriverName, carpoolDto.StartLoc, carpoolDto.EndLoc, carpoolDto.TimeStart, carpoolDto.TimeEnd);
             return convertedCarpool;
         }
+        
         #endregion
     }
 }
