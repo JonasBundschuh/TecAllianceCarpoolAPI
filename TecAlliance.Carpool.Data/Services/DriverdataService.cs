@@ -16,11 +16,8 @@ namespace TecAlliance.Carpool.Data.Services
             //Check if Driver file exists, if not create one
             CheckForDriverOrCreateFile();
 
-            //Get ID
-            var DriverCount = File.ReadAllLines(DriverPath()).Count() + 1;
-
             //Create Variable that contains all contents for the Driver Data
-            string newDriverDataSet = $"{DriverCount};{driver.FreeSeats};{driver.Smoke};{driver.FullName};{driver.StartLoc};{driver.EndLoc};{driver.TimeStart};{driver.TimeEnd}\n";
+            string newDriverDataSet = $"{GetId()};{driver.FreeSeats};{driver.Smoke};{driver.FullName};{driver.StartLoc};{driver.EndLoc};{driver.TimeStart};{driver.TimeEnd}\n";
 
             //Write Driver.csv file with the Data
             File.AppendAllText(DriverPath(), newDriverDataSet);
@@ -116,6 +113,21 @@ namespace TecAlliance.Carpool.Data.Services
             return FinalPath.ToString();
         }
 
+        //Get a Id
+        public int GetId()
+        {
+            List<string[]> AllCarpools = new List<string[]>();
+
+            //for each line in the Carpool.csv file
+            foreach (string f in File.ReadAllLines(DriverPath()))
+            {
+                //Splitten
+                AllCarpools.Add(f.Split(';'));
+            }
+            //Convert Id to int and add +1 to the biggest number in [1] of carpool.csv
+            var Id = Convert.ToInt32(AllCarpools.Max(e => e[0])) + 1;
+            return Id;
+        }
 
         #endregion Helper Methods
     }

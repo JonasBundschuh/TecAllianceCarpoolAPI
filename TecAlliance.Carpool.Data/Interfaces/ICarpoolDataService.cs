@@ -1,10 +1,14 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 using TecAlliance.Carpool.Data.Models;
 
-namespace TecAlliance.Carpool.Data.Services
+namespace TecAlliance.Carpool.Data.Interfaces
 {
-    public class CarpoolDataService
+    public interface ICarpoolDataService
     {
         #region Main Methods
 
@@ -16,7 +20,7 @@ namespace TecAlliance.Carpool.Data.Services
             int Id = 0;
             ////Check If carpools file exists, if not create it
             CheckForOrCreateCarpoolFile();
-           
+
             //Call GetId method to generate / get the ID to give to the new carpool
             Id = GetId();
             //Create  variable for Carpool Driver data set
@@ -104,7 +108,6 @@ namespace TecAlliance.Carpool.Data.Services
             var Id = Convert.ToInt32(AllCarpools.Max(e => e[0])) + 1;
             return Id;
         }
-
 
         //Reads all carpools and adds them to a list + RETURNS the LIST
         public List<string> ReadCarPoolList(string path)

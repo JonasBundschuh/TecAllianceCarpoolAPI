@@ -12,7 +12,6 @@ namespace TecAlliance.Carpool.Business.Services
         DriverdataService driverDataSercice = new DriverdataService();
 
 
-        //[x]
         //POST
         //Add a new driver
         public Driver AddDriver(DriverDto driverDto)
@@ -24,7 +23,6 @@ namespace TecAlliance.Carpool.Business.Services
         }
 
 
-        //[x]
         //GET ALL
         //Methods that gets ALL DRIVERS and RETURNS them in a LIST
         public List<DriverDto> GetAllDrivers()
@@ -40,7 +38,7 @@ namespace TecAlliance.Carpool.Business.Services
             return AllDrivers;
         }
 
-        //[x]
+
         //DLELETE ALL DRIVERS
         //Deletes all drivers by deleting the whole Driver.csv file
         public void DeleteAllDrivers()
@@ -49,7 +47,6 @@ namespace TecAlliance.Carpool.Business.Services
         }
 
 
-        //[x]
         //DELETE BY ID
         //Method to delete a driver by the ID chosen by the User
         public void DeleteDriverbyID(int Id)
@@ -58,7 +55,6 @@ namespace TecAlliance.Carpool.Business.Services
         }
 
 
-        //[x]
         //GET BY ID
         //Method to get/display a single driver by its ID (chosen by the user)
         public DriverDto? GetDriverByID(int DriverId)
@@ -88,7 +84,6 @@ namespace TecAlliance.Carpool.Business.Services
 
 
 
-        //[x]
         //UPDATE
         //Method to edit a existing Driver by the ID entered by the User
         public DriverDto? EditDriverByID(int DriverID, string newDriverName, string NowSmoker)
