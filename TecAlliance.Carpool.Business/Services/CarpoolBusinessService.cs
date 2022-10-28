@@ -94,7 +94,7 @@ namespace TecAlliance.Carpool.Business.Services
 
             foreach (CarpoolS carpool in allCarPools)
             {
-                if (CarpoolID == Convert.ToInt32(carpool.Id))
+                if (CarpoolID == Convert.ToInt32(carpoolDataService.GetId()))
                 {
                     chosenCarpool.FreeSeats = Convert.ToInt32(FreeSeats);
                     chosenCarpool.DriverName = NewDriver;

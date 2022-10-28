@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using TecAlliance.Carpool.Data.Models;
 
@@ -17,7 +18,19 @@ namespace TecAlliance.Carpool.Data.Services
             CheckForOrCreateCarpoolFile();
 
             //check how many lines are there and then set the ID
-            int Id = File.ReadLines(CarpoolPath()).Count() + 1;
+            //int Id = File.ReadLines(CarpoolPath()).Count() + 1;
+
+            List<string[]> AllCarpools = new List<string[]>();
+
+            //for each line in the Carpool.csv file
+            foreach (string f in File.ReadAllLines(CarpoolPath()))
+            {
+                //Splitten
+                AllCarpools.Add(f.Split(';'));
+            }
+            //Convert Id to int and add +1 to the biggest number in [1] of carpool.csv
+            var Id = Convert.ToInt32(AllCarpools.Max(e => e[0])) + 1;
+            
 
             //Create  variable for Carpool Driver data set
             string newCarPoolDataSet = $"{Id};{carpool.FreeSeats};{carpool.DriverName};{carpool.StartLoc};{carpool.EndLoc};{carpool.TimeDepart};{carpool.TimeArrive}\n";
@@ -87,6 +100,22 @@ namespace TecAlliance.Carpool.Data.Services
 
 
         #region Helper Methods
+
+
+        public int GetId()
+        {
+            List<string[]> AllCarpools = new List<string[]>();
+
+            //for each line in the Carpool.csv file
+            foreach (string f in File.ReadAllLines(CarpoolPath()))
+            {
+                //Splitten
+                AllCarpools.Add(f.Split(';'));
+            }
+            //Convert Id to int and add +1 to the biggest number in [1] of carpool.csv
+            var Id = Convert.ToInt32(AllCarpools.Max(e => e[0])) + 1;
+            return Id;
+        }
 
         //Reads all carpools and adds them to a list + RETURNS the LIST
         public List<string> ReadCarPoolList(string path)
