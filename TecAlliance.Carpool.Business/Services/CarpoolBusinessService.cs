@@ -1,14 +1,21 @@
-﻿using TecAlliance.Carpool.Business.Models;
+﻿using TecAlliance.Carpool.Business.Interfaces;
+using TecAlliance.Carpool.Business.Models;
 using TecAlliance.Carpool.Data.Interfaces;
 using TecAlliance.Carpool.Data.Models;
 using TecAlliance.Carpool.Data.Services;
 
 namespace TecAlliance.Carpool.Business.Services
 {
-    public class CarpoolBusinessService : ICarpoolDataService
+    public class CarpoolBusinessService : ICarpoolBusinessService
     {
-        //Create a new CarpoolDataService
-        CarpoolDataService carpoolDataService = new CarpoolDataService();
+
+        ICarpoolDataService carpoolDataService;
+
+
+        public CarpoolBusinessService(ICarpoolDataService xarpoolDataService)
+        {
+            carpoolDataService = xarpoolDataService;
+        }
 
         #region Main Methods
 

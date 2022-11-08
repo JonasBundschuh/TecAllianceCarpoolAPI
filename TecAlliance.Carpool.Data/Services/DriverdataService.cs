@@ -1,12 +1,13 @@
 ﻿using System.Reflection;
 using System.Text;
+using TecAlliance.Carpool.Data.Interfaces;
 using TecAlliance.Carpool.Data.Models;
 
 
 namespace TecAlliance.Carpool.Data.Services
 {
 
-    public class DriverdataService
+    public class DriverdataService : IDriverDataService
     {
         #region Main Methods
 

@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using TecAlliance.Carpool.Business.Models;
+using TecAlliance.Carpool.Data.Interfaces;
 using TecAlliance.Carpool.Data.Models;
 using TecAlliance.Carpool.Data.Services;
 
@@ -9,8 +10,11 @@ namespace TecAlliance.Carpool.Business.Services
     {
 
         //Create new DriverdataService
-        DriverdataService driverDataSercice = new DriverdataService();
-
+        IDriverDataService driverDataSercice;
+        public DriverBusinessService(IDriverDataService driverDataSercice)
+        {
+            this.driverDataSercice = driverDataSercice;
+        }
 
         //POST
         //Add a new driver

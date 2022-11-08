@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TecAlliance.Carpool.Business.Interfaces;
 using TecAlliance.Carpool.Business.Models;
 using TecAlliance.Carpool.Business.Services;
 using TecAlliance.Carpool.Data.Models;
@@ -9,11 +10,11 @@ namespace T_ecAllianceCarpoolAPI.Controllers
     [Route("CarpoolController")]
     public class CarpoolController : ControllerBase
     {
-        private CarpoolBusinessService carpoolBusinessService;
+        ICarpoolBusinessService carpoolBusinessService;
         private readonly ILogger<CarpoolController> _logger;
-        public CarpoolController(ILogger<CarpoolController> logger)
+        public CarpoolController(ILogger<CarpoolController> logger, ICarpoolBusinessService xarpoolBusinessService)
         {
-            carpoolBusinessService = new CarpoolBusinessService();
+            carpoolBusinessService = xarpoolBusinessService;
             _logger = logger;
         }
 

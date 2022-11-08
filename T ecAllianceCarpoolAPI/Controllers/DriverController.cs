@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using TecAlliance.Carpool.Business.Interfaces;
 using TecAlliance.Carpool.Business.Models;
 using TecAlliance.Carpool.Business.Services;
 
@@ -8,13 +9,13 @@ namespace T_ecAllianceCarpoolAPI.Controllers
     [Route("DriverController")]
     public class DriverController : ControllerBase
     {
-        private DriverBusinessService driverBusinessService;
+        IDriverBusinessService driverBusinessService;
 
         private readonly ILogger<DriverController> _logger;
 
-        public DriverController(ILogger<DriverController> logger)
+        public DriverController(ILogger<DriverController> logger, IDriverBusinessService xriverBusinessService)
         {
-            driverBusinessService = new DriverBusinessService();
+            driverBusinessService = xriverBusinessService;
             _logger = logger;
         }
 
@@ -30,7 +31,7 @@ namespace T_ecAllianceCarpoolAPI.Controllers
         public async Task<ActionResult<DriverDto>> Post(DriverDto driver)
         {
             driverBusinessService.AddDriver(driver);
-            return StatusCode(200, "successfully added new Carpool");
+            return StatusCode(200, "successfully added new Driver");
         }
 
         /// <summary>
@@ -73,7 +74,6 @@ namespace T_ecAllianceCarpoolAPI.Controllers
             driverBusinessService.DeleteAllDrivers();
             return StatusCode(200, "Successfully deleted all Drivers");
         }
-
 
         /// <summary>
         /// Function to delete a Driver with the ID chosen by the User
